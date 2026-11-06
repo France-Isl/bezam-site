@@ -1,0 +1,151 @@
+/* Главный экран как в WhatsApp (01.11) в стиле экрана звонка: та же фотография (домик, луна, озеро),
+   тёмное стекло карточек с тонкой золотой каймой, бордовые кнопки с золотом. Без размытия и без тёмной маски
+   на весь экран — затемнены только полосы под шапкой и вкладками. */
+.glh {
+  --glh-gold: #f2c96f;
+  --glh-gold-dim: rgba(242, 201, 111, .42);
+  --glh-ink: #fff4e5;
+  --glh-muted: rgba(255, 236, 210, .76);
+  --glh-glass: rgba(24, 12, 10, .58);
+  --glh-glass-hi: rgba(40, 22, 16, .7);
+  --glh-wine: #a52a3a;
+  position: fixed; inset: 0; z-index: 40;
+  display: flex; flex-direction: column;
+  color: var(--glh-ink);
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #120b0a;
+  overflow: hidden;
+}
+.glh[hidden] { display: none; }
+body.glh-on:not(.glh-letters) .topbar,
+body.glh-on:not(.glh-letters) main,
+body.glh-on:not(.glh-letters) .cinematic-bg,
+body.glh-on:not(.glh-letters) #onlineStrip { visibility: hidden; }
+/* home-boot.js: пока страница грузится — только фон главного экрана, без прежнего оформления.
+   display: none, а не visibility: браузер не раскладывает всю страницу по кускам во время загрузки (на телефоне это ~1–2 с). */
+html.glh-pending body { background: #120b0a url("assets/scenes/call-cabin-moon.webp") 30% 50% / cover no-repeat; }
+html.glh-pending body > * { display: none !important; }
+
+.glh-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: url("assets/scenes/call-cabin-moon.webp") 30% 50% / cover no-repeat; }
+.glh-bg::before { content: ""; position: absolute; inset: 0 0 auto; height: 190px; background: linear-gradient(180deg, rgba(8, 6, 18, .78), rgba(8, 6, 18, 0)); }
+.glh-bg::after { content: ""; position: absolute; inset: auto 0 0; height: 150px; background: linear-gradient(0deg, rgba(14, 7, 8, .85), rgba(14, 7, 8, 0)); }
+.glh > *:not(.glh-bg) { position: relative; z-index: 1; }
+
+/* Шапка: название вкладки, поиск и настройки — круглые стеклянные кнопки как в звонке */
+.glh-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: max(14px, env(safe-area-inset-top)) 16px 8px; }
+.glh-head h1 { margin: 0; color: var(--glh-ink); font-family: "Playfair Display", Georgia, serif; font-size: 32px; font-weight: 700; line-height: 1.1; text-shadow: 0 2px 14px rgba(0, 0, 0, .7); }
+.glh-head-actions { display: flex; gap: 10px; }
+.glh-round { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--glh-gold-dim); border-radius: 50%; color: var(--glh-gold); background: var(--glh-glass); cursor: pointer; }
+.glh-round.is-on { background: var(--glh-wine); color: #fff4e5; border-color: var(--glh-gold); }
+.glh svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+
+.glh-search { display: flex; align-items: center; gap: 10px; margin: 2px 16px 8px; padding: 0 14px; height: 46px; border: 1px solid var(--glh-gold-dim); border-radius: 999px; color: var(--glh-muted); background: var(--glh-glass-hi); }
+.glh-search input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; color: var(--glh-ink); background: transparent; font: inherit; font-size: 16px; }
+.glh-search input::placeholder { color: var(--glh-muted); }
+
+/* Список чатов */
+.glh-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 6px 12px 110px; overscroll-behavior: contain; scrollbar-width: none; }
+.glh-body::-webkit-scrollbar { display: none; }
+.glh-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.glh-chat { display: flex; align-items: center; gap: 4px; border: 1px solid rgba(242, 201, 111, .22); border-radius: 20px; background: var(--glh-glass); box-shadow: 0 10px 26px rgba(0, 0, 0, .28), inset 0 1px rgba(255, 255, 255, .06); }
+.glh-chat.has-unread { border-color: var(--glh-gold-dim); }
+.glh-chat-open { display: flex; align-items: center; gap: 12px; flex: 1 1 auto; min-width: 0; padding: 10px 6px 10px 10px; border: 0; color: inherit; background: transparent; font: inherit; text-align: start; cursor: pointer; }
+.glh-chat-open:active { opacity: .8; }
+.glh-av { position: relative; flex: 0 0 auto; width: 56px; height: 56px; padding: 2px; border-radius: 50%; background: linear-gradient(140deg, #ffe7a6, #c8952f 55%, #f6cf62); box-shadow: 0 0 14px rgba(242, 190, 90, .35); }
+.glh-av img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #2a1810; }
+.glh-av.is-online::after { content: ""; position: absolute; right: 1px; bottom: 2px; width: 13px; height: 13px; border: 2px solid #1a0e0b; border-radius: 50%; background: #3ddc84; }
+.glh-chat-main { display: grid; flex: 1 1 auto; gap: 4px; min-width: 0; }
+.glh-chat-top, .glh-chat-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0; }
+.glh-name { overflow: hidden; min-width: 0; color: var(--glh-ink); font-size: 16.5px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.glh-chat-top time { flex: 0 0 auto; color: var(--glh-muted); font-size: 12.5px; font-weight: 600; }
+.glh-chat.has-unread .glh-chat-top time { color: var(--glh-gold); }
+.glh-pv { display: flex; align-items: center; gap: 4px; overflow: hidden; min-width: 0; color: var(--glh-muted); font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+.glh-pv em { color: var(--glh-gold); font-style: normal; font-weight: 700; }
+.glh-pv-ic { display: inline-grid; flex: 0 0 auto; }
+.glh-pv-ic svg { width: 16px; height: 16px; }
+.glh-dir.is-in .glh-pv-ic { color: #3ddc84; }
+.glh-dir.is-out .glh-pv-ic { color: var(--glh-gold); }
+.glh-on { color: #7ef0ae; font-weight: 700; }
+.glh-badge { flex: 0 0 auto; min-width: 22px; height: 22px; padding: 0 6px; border: 1px solid var(--glh-gold); border-radius: 999px; color: #fff4e5; background: var(--glh-wine); font-size: 12px; font-weight: 800; line-height: 20px; text-align: center; }
+.glh-chat-call { display: grid; place-items: center; flex: 0 0 auto; width: 44px; height: 44px; margin-inline-end: 8px; padding: 0; border: 1px solid var(--glh-gold-dim); border-radius: 50%; color: var(--glh-gold); background: rgba(40, 22, 16, .55); cursor: pointer; }
+.glh-chat-call svg { width: 20px; height: 20px; }
+
+.glh-requests { display: flex; align-items: center; gap: 12px; width: 100%; margin: 0 0 10px; padding: 14px 16px; border: 1px solid var(--glh-gold); border-radius: 18px; color: var(--glh-ink); background: linear-gradient(110deg, rgba(165, 42, 58, .78), rgba(116, 23, 43, .78)); font: inherit; font-weight: 800; cursor: pointer; }
+.glh-requests span { flex: 1; text-align: start; }
+.glh-chev { width: 9px; height: 9px; border-top: 2px solid var(--glh-gold); border-right: 2px solid var(--glh-gold); transform: rotate(45deg); }
+[dir="rtl"] .glh-chev { transform: rotate(-135deg); }
+
+.glh-empty { display: grid; justify-items: center; gap: 16px; margin: 40px 8px 0; padding: 26px 20px; border: 1px solid var(--glh-gold-dim); border-radius: 22px; background: var(--glh-glass); text-align: center; }
+.glh-empty p, .glh-note { margin: 0; color: var(--glh-ink); font-size: 16px; line-height: 1.45; text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+.glh-note { margin-top: 30px; text-align: center; }
+.glh-primary { display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 22px; border: 1px solid var(--glh-gold); border-radius: 999px; color: #fff4e5; background: linear-gradient(110deg, #a52a3a, #861b30 55%, #74172b); box-shadow: 0 10px 26px rgba(80, 8, 24, .45), 0 0 16px rgba(240, 198, 111, .25); font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; }
+
+/* «Ещё» — плитки, как кнопки звонка */
+.glh-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.glh-tile { display: grid; justify-items: center; align-content: center; gap: 8px; min-height: 104px; padding: 12px 6px; border: 1px solid rgba(242, 201, 111, .3); border-radius: 20px; color: var(--glh-ink); background: var(--glh-glass); box-shadow: 0 10px 26px rgba(0, 0, 0, .28), inset 0 1px rgba(255, 255, 255, .06); font: inherit; font-size: 13.5px; font-weight: 700; line-height: 1.2; text-align: center; cursor: pointer; }
+.glh-tile:active { background: var(--glh-glass-hi); }
+.glh-tile-ic { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--glh-gold-dim); border-radius: 50%; color: var(--glh-gold); background: rgba(40, 22, 16, .6); }
+.glh-tile span { overflow-wrap: anywhere; }
+/* «Игры» — две колонки крупных плиток; «Ещё» — список строк, как в настройках WhatsApp. */
+.glh-grid.is-games { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.glh-grid.is-games .glh-tile { min-height: 132px; font-size: 15px; }
+.glh-grid.is-games .glh-tile-ic { width: 58px; height: 58px; }
+.glh-grid.is-games .glh-tile-ic svg { width: 28px; height: 28px; }
+.glh-menu { display: grid; margin: 0; padding: 0; overflow: hidden; border: 1px solid rgba(242, 201, 111, .3); border-radius: 20px; background: var(--glh-glass); list-style: none; }
+.glh-menu li + li { border-top: 1px solid rgba(242, 201, 111, .14); }
+.glh-menu button { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 64px; padding: 10px 16px; border: 0; color: var(--glh-ink); background: transparent; font: inherit; font-size: 15.5px; font-weight: 700; text-align: start; cursor: pointer; }
+.glh-menu button:active { background: var(--glh-glass-hi); }
+.glh-menu button span { flex: 1; }
+.glh-menu .glh-tile-ic { flex: none; width: 40px; height: 40px; }
+/* Экран письма: кнопка «← Чаты» слева, верхние кнопки письма — правее неё. */
+body.glh-letters .topbar { padding-inline-start: 124px; }
+.glh-classic { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 16px; min-height: 48px; border: 1px dashed var(--glh-gold-dim); border-radius: 16px; color: var(--glh-muted); background: rgba(24, 12, 10, .45); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.glh-classic svg { width: 18px; height: 18px; }
+
+/* Круглая кнопка «+» над вкладками */
+.glh-fab-wrap { position: absolute !important; right: 18px; bottom: calc(86px + env(safe-area-inset-bottom)); display: grid; justify-items: end; gap: 10px; }
+[dir="rtl"] .glh-fab-wrap { right: auto; left: 18px; justify-items: start; }
+.glh-fab { display: grid; place-items: center; width: 60px; height: 60px; padding: 0; border: 2px solid var(--glh-gold); border-radius: 50%; color: #fff4e5; background: linear-gradient(140deg, #c0394c, #861b30); box-shadow: 0 12px 28px rgba(80, 8, 24, .55), 0 0 18px rgba(240, 198, 111, .35); cursor: pointer; transition: transform .25s cubic-bezier(.16, 1, .3, 1); }
+.glh-fab svg { width: 28px; height: 28px; stroke-width: 2.4; }
+.glh-fab-wrap.is-open .glh-fab { transform: rotate(45deg); }
+.glh-fab-menu { display: grid; gap: 8px; animation: glh-pop .22s cubic-bezier(.16, 1, .3, 1) both; }
+.glh-fab-menu button { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 18px 0 14px; border: 1px solid var(--glh-gold-dim); border-radius: 999px; color: var(--glh-ink); background: rgba(30, 15, 12, .92); box-shadow: 0 10px 24px rgba(0, 0, 0, .4); font: inherit; font-size: 15px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.glh-fab-menu svg { color: var(--glh-gold); }
+@keyframes glh-pop { from { opacity: 0; transform: translateY(8px) scale(.96); } }
+
+/* Нижние вкладки */
+.glh-tabs { position: absolute !important; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px; border: 1px solid var(--glh-gold-dim); border-radius: 26px; background: rgba(22, 11, 9, .86); box-shadow: 0 14px 34px rgba(0, 0, 0, .45), inset 0 1px rgba(255, 255, 255, .06); }
+.glh-tabs button { display: grid; justify-items: center; gap: 3px; padding: 6px 2px; border: 0; border-radius: 20px; color: var(--glh-muted); background: transparent; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.glh-tabs button i { position: relative; display: grid; place-items: center; width: 54px; height: 30px; border-radius: 999px; }
+.glh-tabs button.is-active { color: var(--glh-gold); }
+.glh-tabs button.is-active i { color: #fff4e5; background: linear-gradient(110deg, #a52a3a, #861b30); box-shadow: inset 0 0 0 1px var(--glh-gold); }
+.glh-tabs b { position: absolute; top: -5px; right: 2px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; color: #fff; background: #e0213e; font-size: 10.5px; font-style: normal; line-height: 18px; text-align: center; }
+
+/* «Письма»: прежний главный экран и пилюля «← Чаты» сверху */
+.glh-back-pill { position: fixed; z-index: 45; top: max(14px, env(safe-area-inset-top)); left: 14px; display: inline-flex; align-items: center; gap: 6px; height: 42px; padding: 0 16px 0 10px; border: 1px solid rgba(242, 201, 111, .55); border-radius: 999px; color: #fff4e5; background: rgba(24, 12, 10, .72); font: 800 14px Manrope, system-ui, sans-serif; cursor: pointer; }
+.glh-back-pill svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+[dir="rtl"] .glh-back-pill { left: auto; right: 14px; }
+[dir="rtl"] .glh-back-pill svg { transform: scaleX(-1); }
+.glh-back-pill[hidden] { display: none; }
+body.glh-letters .topbar .ranking-button, body.glh-letters #homeScreen .home-brand { visibility: hidden; }
+body.is-reading .glh-back-pill { display: none; }
+
+@media (min-width: 700px) {
+  .glh-head, .glh-search, .glh-body { width: min(640px, 100%); margin-inline: auto; }
+  .glh-tabs { left: 50%; right: auto; width: min(620px, calc(100% - 20px)); transform: translateX(-50%); }
+  .glh-fab-wrap { right: calc(50% - 300px); }
+}
+@media (prefers-reduced-motion: reduce) { .glh-fab, .glh-fab-menu { transition: none; animation: none; } }
+body.glh-on .app-update { z-index: 46; }
+
+/* Пока проверяется вход — пустые строки вместо «Войдите» (02.11) */
+.glh-skeleton li { display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 10px 14px; border: 1px solid rgba(242, 201, 111, .16); border-radius: 20px; background: var(--glh-glass); }
+.glh-skeleton i { flex: none; width: 50px; height: 50px; border-radius: 50%; }
+.glh-skeleton span { display: grid; flex: 1; gap: 8px; }
+.glh-skeleton b, .glh-skeleton em { display: block; height: 12px; border-radius: 6px; }
+.glh-skeleton b { width: 46%; }
+.glh-skeleton em { width: 72%; }
+.glh-skeleton :is(i, b, em) { background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .22), rgba(255, 255, 255, .1)) 0 0 / 200% 100%; animation: glh-skel 1.4s ease-in-out infinite; }
+:root[data-look="light"] .glh-skeleton :is(i, b, em) { background-image: linear-gradient(90deg, rgba(19, 38, 42, .07), rgba(19, 38, 42, .14), rgba(19, 38, 42, .07)); }
+@keyframes glh-skel { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .glh-skeleton :is(i, b, em) { animation: none; } }

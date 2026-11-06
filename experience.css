@@ -1,0 +1,53 @@
+:root {
+  --gl-paper-alpha: .95;
+  --gl-scene-dim: .2;
+  --gl-ink-color: #2a2118;
+  --gl-ink-accent: #6d1a20;
+  --gl-letter-font: "Literata", Georgia, serif;
+  --gl-letter-style: normal;
+  --gl-letter-body-weight: 600;
+  --gl-letter-heading-weight: 600;
+  --gl-letter-meta-weight: 700;
+  --gl-letter-signature-style: italic;
+}
+
+/* Три самых красивых стиля текста. */
+body[data-gl-type="classic"] { --gl-letter-font:"Literata",Georgia,serif;--gl-letter-style:normal;--gl-letter-body-weight:600;--gl-letter-heading-weight:600;--gl-letter-meta-weight:700;--gl-letter-signature-style:italic; }
+body[data-gl-type="poetic"] { --gl-letter-font:"Cormorant Garamond",Georgia,serif;--gl-letter-style:italic;--gl-letter-body-weight:600;--gl-letter-heading-weight:600;--gl-letter-meta-weight:600;--gl-letter-signature-style:italic; }
+body[data-gl-type="clear"] { --gl-letter-font:"Manrope",system-ui,sans-serif;--gl-letter-style:normal;--gl-letter-body-weight:560;--gl-letter-heading-weight:700;--gl-letter-meta-weight:700;--gl-letter-signature-style:normal; }
+.letter #letterTitle,.letter .letter-text,.letter .letter-meta,.letter .signature,.letter .signature span,.letter .signature strong { font-family:var(--gl-letter-font); }
+.letter #letterTitle,.letter .letter-text,.letter .letter-meta { font-style:var(--gl-letter-style); }
+.letter .signature,.letter .signature span,.letter .signature strong { font-style:var(--gl-letter-signature-style); }
+/* Чёткие буквы: без размытой тени, со сглаживанием под экран. */
+.letter .letter-text { color:var(--gl-ink-color);font-weight:var(--gl-letter-body-weight);text-shadow:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility; }
+.letter #letterTitle,.letter .signature strong,.letter .letter-meta strong { color:var(--gl-ink-accent);font-weight:var(--gl-letter-heading-weight); }
+.letter .letter-meta { font-weight:var(--gl-letter-meta-weight); }
+body[data-gl-type="clear"] .letter .letter-text { font-size: clamp(17px,3vw,22px); line-height: 1.62; font-weight: 560; letter-spacing: .005em; }
+body[data-gl-type="poetic"] .letter .letter-text { font-size:clamp(20px,3.7vw,27px);line-height:1.52;letter-spacing:.004em; }
+
+/* Рамок нет: письмо — чистая бумага. Старая полосатая кайма и внутренняя линия убраны. */
+.letter::before, .letter::after, .letter .paper-edge { display:none !important; }
+
+/* Студия оформления в настройках. */
+.gl-visual-studio { margin-top:18px; padding:16px; border:1px solid var(--ui-border); border-radius:18px; background:var(--ui-surface); }
+.gl-studio-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.gl-studio-head small { display:block; color:var(--ui-muted); font-size:11px; font-weight:800; letter-spacing:.14em; }
+.gl-studio-head h3 { margin:2px 0 0; color:var(--ui-ink); font-size:16px; }
+.gl-pro { padding:3px 9px; border:1px solid #d7aa3e; border-radius:999px; color:#5a3b00; background:linear-gradient(145deg,#fff3b5,#dca93a); font-size:11px; font-weight:800; }
+body.gl-premium-active .gl-pro { display:none; }
+.gl-studio-group { min-width:0; margin:14px 0 0; padding:0; border:0; }
+.gl-studio-group legend { margin-bottom:8px; color:var(--ui-muted); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.gl-type-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.gl-type-grid button { display:flex; flex-direction:column; align-items:center; gap:7px; min-width:0; min-height:44px; padding:10px 8px; border:1px solid var(--ui-border); border-radius:14px; color:var(--ui-ink); background:var(--ui-panel); font-size:13px; font-weight:700; transition:border-color .2s, background .2s; }
+.gl-type-grid button.is-active { border-color:var(--ui-accent); background:var(--ui-soft); color:var(--ui-accent-deep); box-shadow:inset 0 0 0 1px var(--ui-accent); }
+.gl-type-grid button:focus-visible { outline:2px solid var(--ui-accent); outline-offset:2px; }
+.gl-type-sample { font-style:normal; font-size:22px; line-height:1; color:var(--ui-accent-deep); }
+[data-gl-type="classic"] .gl-type-sample { font-family:"Literata",Georgia,serif; font-weight:600; }
+[data-gl-type="poetic"] .gl-type-sample { font-family:"Cormorant Garamond",Georgia,serif; font-style:italic; font-weight:600; }
+[data-gl-type="clear"] .gl-type-sample { font-family:"Manrope",system-ui,sans-serif; font-weight:700; }
+.gl-premium-block.is-locked [aria-disabled="true"] { opacity:.6; }
+.gl-locked-note { margin:10px 0 0; color:var(--ui-muted); font-size:11px; line-height:1.5; }
+.gl-studio-status { min-height:13px; margin:10px 0 -4px; color:var(--ui-muted); font-size:11px; text-align:center; }
+
+/* Scripts without italics keep the «poetic» style upright. */
+html[lang="ja"] body[data-gl-type], html[lang="ko"] body[data-gl-type], html[lang="zh-Hant"] body[data-gl-type], html[lang="th"] body[data-gl-type], html[lang="ar"] body[data-gl-type] { --gl-letter-style: normal; }

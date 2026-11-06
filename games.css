@@ -1,0 +1,404 @@
+/* Игры для двоих (games.js). Та же бумага и те же цвета, что у «Моментов». */
+.glg-layer {
+  --glg-heart: var(--madder);
+  --glg-heart-off: color-mix(in srgb, var(--madder) 16%, transparent);
+  --glg-right: var(--emerald);
+  --glg-right-soft: color-mix(in srgb, var(--emerald) 10%, transparent);
+  --glg-wrong-soft: color-mix(in srgb, var(--madder) 8%, transparent);
+  position: fixed;
+  z-index: 112;
+  inset: 0;
+  color: var(--ui-ink);
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  visibility: hidden;
+  pointer-events: none;
+}
+.glg-layer[hidden] { display: none !important; }
+.glg-layer.is-open { visibility: visible; pointer-events: auto; }
+.glg-layer *, .glg-layer *::before, .glg-layer *::after { box-sizing: border-box; }
+.glg-layer button, .glg-layer input { font: inherit; }
+.glg-layer button { color: inherit; cursor: pointer; }
+.glg-layer button:focus-visible, .glg-layer input:focus-visible, .glg-layer summary:focus-visible { outline: 3px solid color-mix(in srgb, var(--ui-accent) 30%, transparent); outline-offset: 2px; }
+
+.glg-backdrop { position: absolute; inset: 0; width: 100%; border: 0; background: color-mix(in srgb, var(--night-deep) 58%, transparent); opacity: 0; transition: opacity .28s ease; }
+.glg-layer.is-open .glg-backdrop { opacity: 1; }
+
+.glg-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(560px, 100%);
+  height: 100%;
+  background:
+    radial-gradient(circle at 88% 4%, color-mix(in srgb, var(--madder) 14%, transparent), transparent 31%),
+    radial-gradient(circle at 2% 95%, color-mix(in srgb, var(--gold) 18%, transparent), transparent 28%),
+    linear-gradient(155deg, var(--ui-panel), var(--ui-panel-alt));
+  box-shadow: -34px 0 100px color-mix(in srgb, var(--night-deep) 32%, transparent);
+  transform: translateX(104%);
+  transition: transform .42s cubic-bezier(.16, 1, .3, 1);
+}
+.glg-layer.is-open .glg-panel { transform: translateX(0); }
+
+.glg-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: max(26px, env(safe-area-inset-top)) clamp(20px, 5vw, 38px) 12px; }
+.glg-eyebrow { margin: 0 0 6px; color: var(--ui-accent); font-size: 11px; font-weight: 800; letter-spacing: .17em; }
+.glg-header h2 { margin: 0; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(30px, 7.4vw, 40px); font-weight: 600; line-height: 1; letter-spacing: -.02em; }
+.glg-close { display: grid; flex: 0 0 auto; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--ui-border); border-radius: 50%; background: var(--ui-surface); font-size: 26px; line-height: 1; }
+
+.glg-body { flex: 1; overflow: auto; overscroll-behavior: contain; padding: 4px clamp(20px, 5vw, 38px) max(28px, env(safe-area-inset-bottom)); }
+.glg-body h3 { margin: 0; font-size: 16px; line-height: 1.3; }
+.glg-lead, .glg-muted { margin: 0 0 16px; color: var(--ui-muted); font-size: 13px; line-height: 1.55; }
+.glg-note { margin: 12px 0 0; color: var(--ui-muted); font-size: 11px; line-height: 1.5; }
+.glg-step { margin: 6px 0 8px; color: var(--ui-accent); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.glg-error { min-height: 1em; margin: 8px 0; color: var(--ui-accent-deep); font-size: 11px; font-weight: 700; }
+.glg-error:empty { min-height: 0; margin: 0; }
+.glg-center { display: grid; justify-items: center; gap: 14px; padding: 48px 6px; text-align: center; }
+
+.glg-hero { position: relative; padding: 24px 22px 22px; border: 1px solid var(--ui-border); border-radius: 20px; background: var(--ui-surface); box-shadow: 0 18px 40px color-mix(in srgb, var(--night-deep) 8%, transparent); text-align: center; }
+.glg-hero h3 { margin-bottom: 8px; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px); font-weight: 600; line-height: 1.08; }
+.glg-hero p { margin: 0 0 18px; color: var(--ui-muted); font-size: 13px; line-height: 1.55; }
+.glg-hero-hearts { display: flex; justify-content: center; gap: 4px; margin-bottom: 10px; }
+.glg-hero-hearts svg { width: 30px; height: 30px; fill: var(--glg-heart); }
+.glg-hero-hearts svg:nth-child(2) { width: 22px; height: 22px; margin-top: 10px; opacity: .7; }
+.glg-hero-hearts svg:nth-child(3) { width: 18px; height: 18px; margin-top: 2px; opacity: .5; }
+.glg-pulse svg { animation: glg-beat 1s ease-in-out infinite; }
+
+.glg-primary, .glg-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 20px; border-radius: 16px; font-size: 13px; font-weight: 800; }
+.glg-layer .glg-primary { border: 0; color: var(--cream); background: linear-gradient(135deg, var(--ui-accent), var(--ui-accent-deep)); box-shadow: 0 12px 26px color-mix(in srgb, var(--ui-accent-deep) 25%, transparent); }
+.glg-primary:disabled { opacity: .6; cursor: progress; }
+.glg-secondary { border: 1px solid var(--ui-border); background: var(--ui-surface); }
+.glg-primary .ic, .glg-secondary .ic { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.glg-wide { width: 100%; margin-top: 14px; }
+.glg-link { margin: 8px 0 0; padding: 6px 0; border: 0; background: none; color: var(--ui-accent-deep); font-size: 11px; font-weight: 800; }
+.glg-danger { margin-top: 22px; color: var(--ui-muted); text-decoration: underline; text-underline-offset: 3px; }
+.glg-actions { display: grid; grid-template-columns: auto 1fr; gap: 10px; margin-top: 14px; }
+.glg-actions.glg-stack { grid-template-columns: 1fr; }
+.glg-hero .glg-actions { grid-template-columns: 1fr 1fr; }
+
+.glg-chip { display: inline-block; padding: 2px 8px; border: 1px solid color-mix(in srgb, var(--ui-gold) 45%, transparent); border-radius: 999px; color: var(--ui-gold); font-size: 11px; font-weight: 800; letter-spacing: .06em; vertical-align: 2px; }
+.glg-new { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 999px; color: var(--cream); background: var(--ui-accent); font-size: 11px; }
+
+.glg-section { margin-top: 26px; }
+.glg-section > h3 { margin-bottom: 10px; font-size: 13px; letter-spacing: .03em; }
+.glg-soon ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.glg-soon li { padding: 8px 12px; border: 1px dashed var(--ui-border); border-radius: 999px; color: var(--ui-muted); font-size: 11px; }
+
+.glg-quiz-list, .glg-results, .glg-review { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.glg-quiz-row { display: grid; width: 100%; gap: 3px; padding: 14px 16px; border: 1px solid var(--ui-border); border-radius: 16px; background: var(--ui-surface); text-align: start; }
+.glg-quiz-name { font-size: 13px; font-weight: 800; }
+.glg-quiz-meta { color: var(--ui-muted); font-size: 11px; }
+.glg-quiz-row .glg-new { justify-self: start; }
+
+.glg-form label { display: grid; gap: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 800; }
+.glg-form input { min-height: 48px; padding: 0 14px; border: 1px solid var(--ui-border); border-radius: 14px; color: var(--ui-ink); background: var(--ui-panel); font-size: 16px; font-weight: 600; }
+.glg-intro { text-align: center; }
+.glg-intro label { text-align: start; }
+.glg-intro h3 { margin-bottom: 8px; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px); font-weight: 600; }
+
+.glg-question { margin: 0 0 12px; padding: 14px 14px 8px; border: 1px solid var(--ui-border); border-radius: 18px; background: var(--ui-surface); }
+.glg-question legend { display: flex; align-items: flex-start; gap: 9px; float: left; width: 100%; margin-bottom: 11px; padding: 0; font-size: 16px; font-weight: 800; line-height: 1.35; }
+.glg-question legend + * { clear: both; }
+.glg-number { display: grid; flex: 0 0 auto; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: var(--cream); background: var(--ui-accent); font-size: 11px; }
+.glg-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.glg-option { min-height: 46px; padding: 9px 10px; border: 1px solid var(--ui-border); border-radius: 14px; background: var(--ui-panel); font-size: 13px; font-weight: 700; line-height: 1.25; transition: background .18s, border-color .18s, transform .18s; }
+.glg-option:active { transform: scale(.97); }
+.glg-layer .glg-option.is-picked { border-color: var(--ui-accent); color: var(--cream); background: var(--ui-accent); }
+.glg-sticky { position: sticky; bottom: calc(-1 * max(28px, env(safe-area-inset-bottom))); margin: 4px calc(-1 * clamp(20px, 5vw, 38px)) 0; padding: 12px clamp(20px, 5vw, 38px) max(18px, env(safe-area-inset-bottom)); background: linear-gradient(to top, var(--ui-panel-alt) 72%, transparent); }
+.glg-progress-label { margin: 0; color: var(--ui-muted); font-size: 11px; font-weight: 700; text-align: center; }
+
+.glg-progress { height: 6px; margin: 4px 0 14px; overflow: hidden; border-radius: 999px; background: var(--glg-heart-off); }
+.glg-progress i { display: block; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--ui-accent), var(--ui-gold)); transform: scaleX(var(--glg-progress, 0)); transform-origin: left center; transition: transform .35s cubic-bezier(.16, 1, .3, 1); }
+html[dir="rtl"] .glg-progress i { transform-origin: right center; }
+.glg-asks { margin: 0 0 4px; color: var(--ui-muted); font-size: 11px; font-weight: 700; }
+.glg-play-question { margin: 0 0 18px !important; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px) !important; font-weight: 600; line-height: 1.1 !important; }
+.glg-play-options { grid-template-columns: 1fr; }
+.glg-play-options .glg-option { min-height: 56px; font-size: 16px; text-align: start; padding-inline: 18px; }
+
+.glg-link-box { margin: 0 0 4px; padding: 12px; border: 1px dashed var(--ui-border); border-radius: 14px; background: var(--ui-panel); overflow-wrap: anywhere; text-align: start; }
+.glg-link-box code { font-family: inherit; font-size: 11px; color: var(--ui-muted); }
+.glg-detail-title { margin: 6px 0 12px !important; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px) !important; font-weight: 600; }
+.glg-back { margin: 0; }
+
+.glg-hearts { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 6px 0 10px; }
+.glg-hearts i { display: block; width: 26px; height: 26px; animation: glg-pop .5s cubic-bezier(.16, 1, .3, 1) both; animation-delay: calc(var(--i) * 90ms); }
+.glg-hearts svg { width: 100%; height: 100%; fill: var(--glg-heart-off); }
+.glg-hearts i.is-on svg { fill: var(--glg-heart); }
+.glg-score { padding: 22px 18px; border: 1px solid var(--ui-border); border-radius: 20px; background: var(--ui-surface); text-align: center; }
+.glg-score-number { margin: 0; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(30px, 7.4vw, 40px); font-weight: 700; line-height: 1; color: var(--ui-accent-deep); }
+.glg-score h3 { margin: 8px 0 6px; font-size: 16px; }
+.glg-score .glg-muted { margin: 0; }
+
+.glg-review li { display: grid; gap: 3px; padding: 11px 13px; border-radius: 14px; font-size: 13px; }
+.glg-review li.is-right { background: var(--glg-right-soft); }
+.glg-review li.is-wrong { background: var(--glg-wrong-soft); }
+.glg-review li > span { color: var(--ui-muted); font-size: 11px; }
+.glg-review li.is-right b { color: var(--glg-right); }
+.glg-review li small { color: var(--ui-muted); }
+
+.glg-result { border: 1px solid var(--ui-border); border-radius: 16px; background: var(--ui-surface); }
+.glg-result.is-new { border-color: var(--ui-accent); }
+.glg-result summary { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 13px 15px; cursor: pointer; list-style: none; }
+.glg-result summary::-webkit-details-marker { display: none; }
+.glg-result-name { font-weight: 800; }
+.glg-result summary strong { color: var(--ui-accent-deep); }
+.glg-result summary time { grid-column: 1 / -1; color: var(--ui-muted); font-size: 11px; }
+.glg-result details > :not(summary) { margin: 0 12px 12px; }
+
+/* Кнопка на главной и список возможностей в окне покупки. */
+.home-smart-actions .games-link { border-color: color-mix(in srgb, var(--gold-bright) 45%, transparent); color: var(--cream); background: linear-gradient(135deg, color-mix(in srgb, var(--madder) 72%, transparent), color-mix(in srgb, var(--night) 62%, transparent)); }
+.home-smart-actions .games-link > #gamesOpenHomeLabel { color: inherit; }
+.home-smart-actions .games-link .ic { fill: none; stroke: currentColor; stroke-width: 1.7; }
+
+.paywall-features { display: grid; gap: 12px; margin: 16px 0 18px; text-align: start; }
+.paywall-features section { padding: 11px 13px; border: 1px solid var(--ui-border); border-radius: 16px; background: var(--ui-surface); }
+.paywall-features h3 { margin: 0 0 7px; color: var(--ui-accent-deep); font-size: 11px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.paywall-card .paywall-features ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 11px; }
+.paywall-card .paywall-features li { justify-content: flex-start; line-height: 1.4; }
+.paywall-card .paywall-features li.is-soon { color: var(--ui-muted); }
+.paywall-card .paywall-features li.is-soon::before { border-color: var(--ui-gold); }
+.paywall-features .glg-chip { margin-inline-start: 4px; padding: 0 6px; font-size: 11px; vertical-align: 1px; white-space: nowrap; }
+
+body.glg-open { overflow: hidden; }
+
+@keyframes glg-pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
+@keyframes glg-beat { 50% { transform: scale(1.18); } }
+
+@media (max-width: 340px) {
+  .glg-options { grid-template-columns: 1fr; }
+  .glg-hero .glg-actions { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glg-panel, .glg-backdrop, .glg-progress i { transition: none; }
+  .glg-hearts i, .glg-pulse svg { animation: none; }
+}
+html[dir="rtl"] .glg-panel { right: auto; left: 0; transform: translateX(-104%); }
+html[dir="rtl"] .glg-layer.is-open .glg-panel { transform: translateX(0); }
+
+/* «Да или нет»: живая игра вдвоём. */
+.glg-yn-chips { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px; }
+.glg-yn-chips b { padding: 6px 14px; border-radius: 999px; color: var(--cream); font-size: 13px; letter-spacing: .04em; }
+.glg-yn-chips b:first-child { background: var(--emerald); }
+.glg-yn-chips b:last-child { background: var(--ui-accent); }
+.glg-yn-chips i { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--ui-gold); border-radius: 50%; color: var(--ui-gold); font-size: 16px; font-style: normal; font-weight: 900; }
+.glg-yn-hero { margin-top: 14px; }
+.glg-yn-wait { padding-top: 6px; }
+.glg-yn-status { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin: 0; color: var(--ui-ink); font-size: 13px; font-weight: 800; text-align: center; }
+.glg-yn-status svg { width: 18px; height: 18px; fill: var(--glg-heart); }
+.glg-yn-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ui-gold); animation: glg-beat 1.2s ease-in-out infinite; }
+
+.glg-yn-card { position: relative; overflow: hidden; border: 1px solid var(--ui-border); border-radius: 20px; background: var(--ui-surface); box-shadow: 0 18px 40px color-mix(in srgb, var(--night-deep) 14%, transparent); text-align: center; animation: glg-card-in .45s cubic-bezier(.16, 1, .3, 1) both; }
+.glg-yn-art { height: clamp(150px, 34vh, 260px); background-position: center; background-size: cover; }
+.glg-yn-card h3 { margin: 0 !important; padding: 18px 18px 14px; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px) !important; font-weight: 600; line-height: 1.15 !important; }
+.glg-yn-timer { height: 8px; margin: 0 18px 18px; overflow: hidden; border-radius: 999px; background: var(--glg-heart-off); }
+.glg-yn-timer i { display: block; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--ui-gold), var(--ui-accent)); transform-origin: left center; animation-name: glg-countdown; animation-timing-function: linear; animation-fill-mode: forwards; }
+html[dir="rtl"] .glg-yn-timer i { transform-origin: right center; }
+.glg-yn-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.glg-yn-actions .glg-yn-status { grid-column: 1 / -1; min-height: 64px; }
+.glg-layer .glg-yn-button { min-height: 64px; border: 0; border-radius: 18px; color: var(--cream); font-size: 16px; font-weight: 900; letter-spacing: .04em; box-shadow: 0 12px 26px color-mix(in srgb, var(--night-deep) 22%, transparent); transition: transform .15s; }
+.glg-layer .glg-yn-button:active { transform: scale(.96); }
+.glg-yn-button.is-yes { background: linear-gradient(135deg, var(--emerald), color-mix(in srgb, var(--emerald) 70%, var(--night))); }
+.glg-yn-button.is-no { background: linear-gradient(135deg, var(--ui-accent), var(--ui-accent-deep)); }
+
+.glg-yn-reveal { display: grid; gap: 6px; margin: 0 16px 18px; padding: 14px; border-radius: 16px; background: color-mix(in srgb, var(--ui-gold) 10%, transparent); animation: glg-card-in .4s cubic-bezier(.16, 1, .3, 1) both; }
+.glg-yn-reveal.is-match { background: color-mix(in srgb, var(--madder) 10%, transparent); }
+.glg-yn-reveal.is-closed { color: var(--ui-muted); font-weight: 700; }
+.glg-yn-reveal p { margin: 0; }
+.glg-yn-match { color: var(--ui-accent-deep); font-weight: 900; }
+.glg-yn-match svg { width: 16px; height: 16px; vertical-align: -3px; fill: var(--glg-heart); }
+.glg-yn-line { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; }
+.glg-yn-line.is-mine { color: var(--ui-muted); }
+.glg-yn-caption { font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px); font-weight: 600; line-height: 1.15; }
+.glg-yn-answer { padding: 2px 10px; border-radius: 999px; color: var(--cream); font-size: 11px; font-weight: 900; }
+.glg-yn-answer.is-yes { background: var(--emerald); }
+.glg-yn-answer.is-no { background: var(--ui-accent); }
+.glg-yn-answer.is-none { background: var(--ui-muted); }
+
+@keyframes glg-countdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes glg-card-in { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .glg-yn-card, .glg-yn-reveal, .glg-yn-dot { animation: none; }
+}
+.glg-yn-caption.is-missed { color: var(--ui-muted); font-size: 16px; }
+
+/* «Что мы любим»: четыре картинки, выбор вдвоём. */
+.glg-lv-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 0 auto 14px; max-width: 320px; }
+.glg-lv-thumbs i { aspect-ratio: 3 / 2; border-radius: 14px; background-position: center; background-size: cover; box-shadow: 0 6px 14px color-mix(in srgb, var(--night-deep) 16%, transparent); }
+.glg-lv-topic { margin: 0 0 10px !important; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px) !important; font-weight: 600; line-height: 1.15 !important; text-align: center; }
+.glg-lv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.glg-layer .glg-lv-tile { position: relative; display: grid; gap: 0; padding: 0; overflow: hidden; border: 2px solid transparent; border-radius: 18px; background: var(--ui-surface); box-shadow: 0 10px 22px color-mix(in srgb, var(--night-deep) 14%, transparent); text-align: center; transition: transform .18s, border-color .18s, opacity .18s; animation: glg-card-in .4s cubic-bezier(.16, 1, .3, 1) both; }
+.glg-layer .glg-lv-tile:not(:disabled):active { transform: scale(.97); }
+.glg-layer .glg-lv-tile:disabled { cursor: default; }
+.glg-lv-img { display: block; aspect-ratio: 3 / 2; background-position: center; background-size: cover; }
+.glg-lv-label { display: block; padding: 8px 6px 10px; font-size: 13px; font-weight: 800; line-height: 1.2; }
+.glg-layer .glg-lv-tile.is-mine { border-color: var(--ui-gold); }
+.glg-layer .glg-lv-tile.is-partner { border-color: var(--emerald); }
+.glg-layer .glg-lv-tile.is-match { border-color: var(--ui-accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ui-accent) 22%, transparent), 0 10px 22px color-mix(in srgb, var(--night-deep) 14%, transparent); }
+.glg-lv-grid.is-revealed .glg-lv-tile:not(.is-mine):not(.is-partner) { opacity: .45; }
+.glg-lv-badge { position: absolute; top: 8px; max-width: 46%; overflow: hidden; padding: 3px 8px; border-radius: 999px; color: var(--cream); font-size: 11px; font-weight: 900; text-overflow: ellipsis; white-space: nowrap; }
+.glg-lv-badge.is-you { inset-inline-start: 8px; background: var(--ui-gold); }
+.glg-lv-badge.is-them { inset-inline-end: 8px; background: var(--emerald); }
+.glg-lv-status { display: block; min-height: 22px; margin-top: 14px; }
+.glg-lv-status.is-match { color: var(--ui-accent-deep); }
+.glg-lv-common { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.glg-lv-common li { overflow: hidden; border-radius: 14px; background: var(--ui-surface); font-size: 11px; font-weight: 800; text-align: center; }
+.glg-lv-common i { display: block; aspect-ratio: 3 / 2; background-position: center; background-size: cover; }
+.glg-lv-common span { display: block; padding: 6px; }
+@media (prefers-reduced-motion: reduce) { .glg-layer .glg-lv-tile { animation: none; } }
+.glg-lv-grid.is-revealed .glg-lv-tile, .glg-lv-grid.is-answered .glg-lv-tile { animation: none; }
+
+/* «Карточки с мишками»: игра на память вдвоём. */
+.glg-mc-badge { display: grid; grid-template-columns: repeat(4, 44px); justify-content: center; gap: 6px; margin-bottom: 12px; }
+.glg-mc-badge i { display: grid; place-items: center; aspect-ratio: 3 / 4; border-radius: 14px; background-position: center; background-size: cover; box-shadow: 0 6px 14px color-mix(in srgb, var(--night-deep) 16%, transparent); }
+.glg-mc-badge i.is-back, .glg-mc-back { background: linear-gradient(145deg, var(--ui-accent), var(--ui-accent-deep)); }
+.glg-mc-badge svg, .glg-mc-back svg { width: 40%; fill: color-mix(in srgb, var(--cream) 75%, transparent); }
+.glg-mc-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.glg-mc-clock { color: var(--ui-accent-deep); font-size: 16px; font-variant-numeric: tabular-nums; }
+.glg-mc-turn { margin: 0 0 8px; color: var(--ui-muted); font-size: 13px; font-weight: 800; text-align: center; }
+.glg-mc-turn.is-mine { color: var(--ui-accent-deep); }
+.glg-mc-grid { display: grid; grid-template-columns: repeat(var(--mc-columns, 4), 1fr); gap: 8px; margin-top: 12px; perspective: 900px; }
+.glg-layer .glg-mc-card { position: relative; aspect-ratio: 3 / 4; padding: 0; border: 0; border-radius: 14px; background: none; transform-style: preserve-3d; transition: transform .45s cubic-bezier(.16, 1, .3, 1); }
+.glg-layer .glg-mc-card:disabled { cursor: default; }
+.glg-layer .glg-mc-card:not(:disabled):active { transform: scale(.95); }
+.glg-mc-card.is-open { transform: rotateY(180deg); }
+.glg-mc-back, .glg-mc-face { position: absolute; inset: 0; display: grid; place-items: center; border-radius: inherit; backface-visibility: hidden; box-shadow: 0 8px 18px color-mix(in srgb, var(--night-deep) 16%, transparent); }
+.glg-mc-face { background-position: center; background-size: cover; transform: rotateY(180deg); }
+.glg-mc-card.is-matched .glg-mc-face { box-shadow: 0 0 0 3px var(--ui-accent), 0 8px 18px color-mix(in srgb, var(--night-deep) 16%, transparent); }
+.glg-mc-face i { position: absolute; top: 6px; inset-inline-end: 6px; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--cream); }
+.glg-mc-face i svg { width: 14px; fill: var(--glg-heart); }
+.glg-mc-scores { display: flex; justify-content: center; gap: 22px; margin: 16px 0 0; font-size: 13px; font-weight: 800; }
+.glg-mc-scores b { color: var(--ui-accent-deep); }
+.glg-mc-scores svg { width: 13px; height: 13px; fill: var(--glg-heart); vertical-align: -1px; }
+.glg-mc-hug { aspect-ratio: 3 / 2; margin: 0 0 14px; border-radius: 16px; background-position: center; background-size: cover; }
+@media (prefers-reduced-motion: reduce) { .glg-layer .glg-mc-card { transition: none; } }
+
+/* «Кто быстрее»: найти нужную картинку первым. */
+.glg-du-find { color: var(--ui-accent-deep); }
+.glg-layer .glg-du-tile.is-right, .glg-layer .glg-du-tile.is-answer { border-color: var(--emerald); box-shadow: 0 0 0 4px color-mix(in srgb, var(--emerald) 22%, transparent), 0 10px 22px color-mix(in srgb, var(--night-deep) 14%, transparent); }
+.glg-layer .glg-du-tile.is-wrong { border-color: var(--ui-accent); opacity: .6; }
+.glg-du-grid.is-revealed .glg-du-tile:not(.is-answer):not(.is-right):not(.is-wrong) { opacity: .45; }
+.glg-du-grid.is-revealed .glg-du-tile.is-answer { opacity: 1; }
+
+/* «Кто из нас?» */
+.glg-who-chips b { max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.glg-who-card .glg-yn-chips { margin: 18px 0 0; }
+.glg-who-card .glg-yn-answer { color: var(--ui-ink); background: color-mix(in srgb, var(--ui-gold) 22%, transparent); font-size: 13px; }
+
+/* «Закончи фразу» и «Книга пары». */
+.glg-ph-badge { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 10px; color: var(--ui-accent); font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(30px, 7.4vw, 40px); font-weight: 600; line-height: 1; }
+.glg-ph-badge svg { width: 30px; height: 30px; fill: var(--glg-heart); }
+.glg-ph-card h3 { padding-top: 22px; }
+.glg-ph-form { margin-top: 14px; }
+.glg-ph-form textarea { width: 100%; min-height: 96px; padding: 14px; border: 1px solid var(--ui-border); border-radius: 16px; color: var(--ui-ink); background: var(--ui-panel); font: inherit; font-size: 16px; line-height: 1.45; resize: vertical; }
+.glg-ph-card + .glg-yn-status { display: flex; min-height: 64px; margin-top: 16px; }
+.glg-ph-answers { display: grid; gap: 10px; margin: 0 16px 18px; }
+.glg-ph-answer { display: grid; gap: 4px; margin: 0; padding: 12px 14px; border-radius: 16px; background: color-mix(in srgb, var(--emerald) 9%, var(--ui-surface)); text-align: start; animation: glg-card-in .4s cubic-bezier(.16, 1, .3, 1) both; }
+.glg-ph-answer.is-mine { background: color-mix(in srgb, var(--ui-gold) 12%, var(--ui-surface)); }
+.glg-ph-answer b { color: var(--ui-muted); font-size: 11px; letter-spacing: .04em; }
+.glg-ph-answer span { font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(19px, 3.5vw, 26px); font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
+.glg-book { display: grid; gap: 14px; margin: 18px 0 0; padding: 0; list-style: none; }
+.glg-book-page { display: grid; gap: 8px; padding: 16px; border: 1px solid var(--ui-border); border-radius: 18px; background: var(--ui-surface); }
+.glg-book-prompt { margin: 0; color: var(--ui-accent-deep); font-size: 13px; font-weight: 800; }
+.glg-book-meta { margin: 0; color: var(--ui-muted); font-size: 11px; }
+.glg-book-meta .glg-link { margin: 0; padding: 0; }
+.glg-book-hero { margin-top: 10px; }
+
+/* «Позвать друга» в комнате ожидания. */
+.glg-invite-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.glg-invite-row { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 6px 8px 6px 14px; border: 1px solid var(--ui-border); border-radius: 16px; background: var(--ui-surface); }
+.glg-invite-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: color-mix(in srgb, var(--ui-muted) 55%, var(--ui-surface)); }
+.glg-invite-dot.is-online { background: var(--emerald); }
+.glg-invite-name { flex: 1; min-width: 0; overflow: hidden; font-size: 13px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.glg-layer .glg-invite-button { min-height: 40px; padding: 0 14px; border-radius: 14px; font-size: 11px; }
+@media (prefers-reduced-motion: reduce) { .glg-ph-answer { animation: none; } }
+.glg-layer .glg-primary > svg:not(.ic), .glg-layer .glg-secondary > svg:not(.ic) { flex: none; width: 16px; height: 16px; fill: var(--glg-heart); }
+.glg-layer .glg-primary > svg:not(.ic) { fill: currentColor; }
+
+/* «Правда или ложь». */
+.glg-tf-card { padding-top: 22px; }
+.glg-tf-card h3 { font-size: clamp(19px, 3.5vw, 26px); line-height: 1.3; }
+.glg-tf-chips b:first-child { color: var(--emerald); }
+.glg-tf-verdict { margin: 0 0 6px; font-size: clamp(16px, 1.6vw, 22px); font-weight: 900; }
+.glg-tf-verdict.is-true { color: var(--emerald); }
+.glg-tf-verdict.is-false { color: var(--ui-accent-deep); }
+.glg-tf-fact { margin: 0 0 12px; color: var(--ui-ink); font-size: 13px; line-height: 1.5; }
+.glg-tf-answer { font-weight: 800; }
+.glg-tf-answer.is-right { color: var(--emerald); }
+.glg-tf-answer.is-wrong { color: var(--ui-accent-deep); opacity: .85; }
+
+/* «Угадай страну». */
+.glg-co-art { aspect-ratio: 3 / 2; margin: 4px 0 12px; border-radius: 18px; background-position: center; background-size: cover; box-shadow: 0 14px 34px color-mix(in srgb, var(--ink) 18%, transparent); }
+.glg-co-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+.glg-co-option { position: relative; min-height: 54px; padding: 8px 10px; border: 1px solid var(--ui-border); border-radius: 14px; color: var(--ui-ink); background: var(--ui-surface); font-size: 13px; font-weight: 800; line-height: 1.25; overflow-wrap: anywhere; transition: transform .15s ease, border-color .2s ease, background-color .2s ease; }
+.glg-co-option:not(:disabled):active { transform: scale(.97); }
+.glg-co-option.is-picked { border-color: var(--ui-accent); background: color-mix(in srgb, var(--ui-accent) 10%, var(--ui-surface)); }
+.glg-co-option.is-right { border-color: var(--emerald); color: var(--emerald); background: color-mix(in srgb, var(--emerald) 14%, var(--ui-surface)); }
+.glg-co-option.is-wrong { border-color: var(--ui-accent-deep); opacity: .8; }
+.glg-co-option .glg-lv-badge { top: -9px; }
+
+/* «Угадай по подсказкам» и «Мечты и планы». */
+.glg-hi-clues { display: grid; gap: 6px; margin: 4px 0 10px; padding: 0; list-style: none; }
+.glg-hi-clues li { display: flex; gap: 8px; align-items: baseline; padding: 10px 12px; border: 1px solid var(--ui-border); border-radius: 14px; background: var(--ui-surface); font-size: 13px; line-height: 1.4; transition: opacity .3s ease, transform .3s ease; }
+.glg-hi-clues li b { flex: none; color: var(--ui-accent-deep); font-size: 11px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+.glg-hi-clues li.is-hidden { opacity: .45; }
+.glg-hi-clues li.is-open { animation: section-unfold .42s var(--ease-weave, ease) both; }
+.glg-hi-chips b { min-width: 26px; }
+.glg-dr-question { line-height: 1.3; }
+.glg-dr-options .glg-co-option { min-height: 60px; }
+.glg-dr-common { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.glg-dr-common li { display: flex; gap: 8px; align-items: center; padding: 8px 12px; border: 1px solid var(--ui-border); border-radius: 14px; background: var(--ui-surface); font-size: 13px; font-weight: 700; }
+.glg-dr-common li svg { flex: none; width: 14px; height: 14px; fill: var(--ui-accent); }
+
+/* Переключатель «Скромный режим». */
+.glg-modest { display: flex; gap: 12px; align-items: center; margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--ui-border); border-radius: 16px; background: var(--ui-surface); cursor: pointer; }
+.glg-modest input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--emerald); }
+.glg-modest span { display: grid; gap: 2px; }
+.glg-modest b { font-size: 13px; font-weight: 800; }
+.glg-modest small { color: var(--ui-muted); font-size: 11px; line-height: 1.4; }
+
+/* «Игры» в стиле главной (31.10): фото костра у озера, тёмное стекло, золотые края, бордовые кнопки */
+#gamesLayer {
+  --ui-panel: rgba(18, 9, 12, .64);
+  --ui-panel-alt: rgba(18, 9, 12, .64);
+  --ui-ink: #fff4e5;
+  --ui-muted: rgba(255, 238, 214, .8);
+  --ui-accent: #a52a3a;
+  --ui-accent-deep: #74172b;
+  --ui-soft: rgba(244, 202, 126, .14);
+  --ui-surface: rgba(20, 10, 14, .6);
+  --ui-border: rgba(244, 202, 126, .62);
+  --ui-gold: #f2c96f;
+  color: var(--ui-ink);
+}
+#gamesLayer .glg-panel { background: #170b0c url("assets/scenes/chat-campfire.webp") 50% 50% / cover no-repeat; color: var(--ui-ink); }
+#gamesLayer .glg-header { text-shadow: 0 2px 16px rgba(0, 0, 0, .7); }
+#gamesLayer .glg-eyebrow { color: #f1c76e; letter-spacing: .22em; }
+#gamesLayer .glg-header h2 { color: #fff4df; font-family: "Playfair Display", Georgia, serif; font-weight: 600; }
+#gamesLayer .glg-close { width: 48px; height: 48px; border: 1px solid rgba(242, 205, 145, .55); color: #fff4e2; background: rgba(20, 10, 14, .62); box-shadow: 0 5px 18px rgba(0, 0, 0, .3), inset 0 1px rgba(255, 255, 255, .12); }
+#gamesLayer .glg-lead, #gamesLayer .glg-note, #gamesLayer .glg-muted { color: rgba(255, 238, 214, .86); text-shadow: 0 1px 8px rgba(0, 0, 0, .8); }
+#gamesLayer .glg-hero,
+#gamesLayer .glg-modest,
+#gamesLayer .glg-center,
+#gamesLayer .glg-card {
+  border: 1px solid rgba(244, 202, 126, .62);
+  border-radius: 23px;
+  background: linear-gradient(180deg, rgba(26, 12, 16, .58), rgba(14, 7, 10, .5));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .34), inset 0 1px rgba(255, 255, 255, .1);
+  color: var(--ui-ink);
+}
+#gamesLayer .glg-modest { border-radius: 18px; }
+#gamesLayer .glg-modest input { accent-color: #f2c96f; }
+#gamesLayer .glg-hero h3, #gamesLayer .glg-body h3 { color: #fff4e5; }
+#gamesLayer .glg-hero p { color: rgba(255, 238, 214, .86); }
+#gamesLayer .glg-primary { border: 1px solid #f0c66f; border-radius: 18px; color: #fff4e5; background: linear-gradient(110deg, #a52a3a, #861b30 55%, #74172b); box-shadow: 0 10px 26px rgba(80, 8, 24, .45), 0 0 16px rgba(240, 198, 111, .25); }
+#gamesLayer .glg-secondary { border: 1px solid rgba(244, 202, 126, .62); border-radius: 18px; color: #fff4e5; background: rgba(20, 10, 14, .62); }
+#gamesLayer input:not([type="checkbox"]):not([type="radio"]), #gamesLayer textarea, #gamesLayer select { border-color: rgba(244, 202, 126, .62); color: #fff4e5; background: rgba(20, 10, 14, .66); }
+#gamesLayer input::placeholder, #gamesLayer textarea::placeholder { color: rgba(255, 238, 214, .6); }
+
+/* «Быстрые действия» (с главного экрана, владелец 01.11) — вверху «Игр для двоих», компактно 4 × 2 */
+#gamesLayer .glg-body > #homeQuick { display: block; margin: 0 0 18px; padding: 12px 10px 10px; border: 1px solid rgba(240, 200, 130, .45); border-radius: 22px; background: linear-gradient(180deg, rgba(74, 42, 26, .7), rgba(36, 20, 14, .82)); box-shadow: 0 10px 26px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 230, 190, .12); }
+#gamesLayer #homeQuick h2 { display: flex; align-items: center; gap: 8px; margin: 0 4px 10px; font-size: 16px; }
+#gamesLayer #homeQuick h2 svg { width: 18px; height: 18px; fill: #ff5f86; }
+#gamesLayer #homeQuick .home-quick-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+#gamesLayer #homeQuick .home-quick-grid button { gap: 6px; min-height: 82px; padding: 10px 3px 8px; border-radius: 16px; font-size: 12px; }
+#gamesLayer #homeQuick .home-quick-ic { font-size: 30px; }

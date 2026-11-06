@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; child-src 'none'; form-action 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; media-src 'self' data: blob: https://xzzngrquomyiglktroqi.supabase.co; connect-src 'self' https://api.open-meteo.com https://xzzngrquomyiglktroqi.supabase.co wss://xzzngrquomyiglktroqi.supabase.co; manifest-src 'self'; worker-src 'self'" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#211a27" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="GlowLetter — атмосферные персональные письма, умный редактор и растущая коллекция тёплых текстов и стихов." />
+  <meta property="og:title" content="GlowLetter · Тёплые слова" />
+  <meta property="og:description" content="Иногда одно письмо говорит больше, чем сотня сообщений." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://bezam.org/assets/og-glowletter.jpg?v=157" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="628" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>GlowLetter · Тёплые слова</title>
+  <link rel="manifest" href="manifest.webmanifest?v=157" />
+  <link rel="icon" href="favicon-48.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="stylesheet" href="fonts/local-fonts.css?v=157" />
+  <script src="home-boot.js?v=157"></script>
+  <link rel="stylesheet" href="styles.css?v=157" />
+  <link rel="stylesheet" href="experience.css?v=157" />
+  <link rel="stylesheet" href="email-auth.css?v=157" />
+  <link rel="stylesheet" href="moments.css?v=157" data-glowletter-moments-style />
+  <link rel="stylesheet" href="games.css?v=157" />
+  <link rel="stylesheet" href="friends.css?v=157" />
+  <link rel="stylesheet" href="couple.css?v=157" />
+  <link rel="stylesheet" href="ultra.css?v=157" />
+  <link rel="stylesheet" href="table-board.css?v=157" />
+  <link rel="stylesheet" href="table-party.css?v=157" />
+  <link rel="stylesheet" href="table-group.css?v=157" />
+  <link rel="stylesheet" href="word.css?v=157" />
+  <link rel="stylesheet" href="ranking.css?v=157" />
+  <link rel="stylesheet" href="guard.css?v=157" />
+  <link rel="stylesheet" href="admin.css?v=157" />
+  <link rel="stylesheet" href="durak.css?v=157" />
+  <link rel="stylesheet" href="shop.css?v=157" />
+  <link rel="stylesheet" href="gift-fx.css?v=157" />
+  <link rel="stylesheet" href="settings-menu.css?v=157" />
+  <link rel="stylesheet" href="home-chats.css?v=157" />
+  <link rel="stylesheet" href="themes.css?v=157" />
+</head>
+<body data-ui-theme="garnet">
+  <!--
+  THESIS: письмо — это подарок-наследие, а не страница с текстом; отказ от кремовой
+  бумаги с курсивным антиквой, в которую скатывается вся категория «тёплых слов».
+  OWN-WORLD: ковёр и золотное шитьё. Индиговая стена, поле цвета марены, шафрановое
+  золото, слоновая кость. Кайма из повторяющихся полос обрамляет каждую поверхность;
+  орнамент строится градиентами, без картинок. Manrope тяжёлых начертаний — голос
+  интерфейса, Literata — голос письма. Иерархия только контрастом кегля и сеткой.
+  STORY: человек видит вещь, которую не стыдно подарить, находит своё письмо за два
+  касания и отдаёт его по ссылке или QR.
+  FIRST VIEWPORT: тёмная стена, по центру — обрамлённый каймой медальон с иллюстрацией
+  и названием; под ним одна крупная кнопка «Открыть письмо», ниже — золотая корзина «Магазин» (владелец 31.10), «Мои моменты» — в «Быстрых действиях».
+  FORM: ковёр и золотное шитьё, кандидат 3 из семи, seed 81bd7076.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
+    <symbol id="ic-home" viewBox="0 0 24 24"><path d="M4 10.6 12 4l8 6.6V19a1.4 1.4 0 0 1-1.4 1.4h-3.2v-5.6H10.6v5.6H7.4A1.4 1.4 0 0 1 6 19v-8.4Z"/></symbol>
+    <symbol id="ic-note" viewBox="0 0 24 24"><path d="M9 18V5.6l10-1.8v12.4"/><circle cx="6.6" cy="18" r="2.4"/><circle cx="16.6" cy="16.2" r="2.4"/></symbol>
+    <symbol id="ic-cloud" viewBox="0 0 24 24"><path d="M7.4 18.4a4 4 0 0 1-.4-8 5.2 5.2 0 0 1 10 1.2h.4a3.4 3.4 0 0 1 0 6.8Z"/></symbol>
+    <symbol id="ic-heart" viewBox="0 0 24 24"><path d="M12 20 4.9 12.9a4.3 4.3 0 0 1 6.1-6.1l1 1 1-1a4.3 4.3 0 0 1 6.1 6.1Z"/></symbol>
+    <symbol id="ic-dots" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18.5" cy="12" r="1.6"/></symbol>
+    <symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.4V12l3.2 2"/></symbol>
+    <symbol id="ic-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.2"/><path d="M15 9V6.2A2.2 2.2 0 0 0 12.8 4H6.2A2.2 2.2 0 0 0 4 6.2v6.6A2.2 2.2 0 0 0 6.2 15H9"/></symbol>
+    <symbol id="ic-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0 4.2-4.2M12 15l-4.2-4.2M4.5 19.5h15"/></symbol>
+    <symbol id="ic-bookmark" viewBox="0 0 24 24"><path d="M6.5 4.6h11v15l-5.5-3.8-5.5 3.8Z"/></symbol>
+    <symbol id="ic-book" viewBox="0 0 24 24"><path d="M12 6.4S10 4.6 4.6 4.6v12.8C10 17.4 12 19.4 12 19.4s2-2 7.4-2V4.6C14 4.6 12 6.4 12 6.4Zm0 0v13"/></symbol>
+    <symbol id="ic-flag" viewBox="0 0 24 24"><path d="M6 20.4V4.2s2.4-.8 5 .6 5 .6 7 0v9.4c-2 .6-4.4 1.4-7 0s-5-.6-5-.6"/></symbol>
+    <symbol id="ic-share" viewBox="0 0 24 24"><circle cx="18" cy="6" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="m8.3 10.8 7.4-3.6m0 9.6-7.4-3.6"/></symbol>
+    <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5.4v13.2M5.4 12h13.2"/></symbol>
+    <symbol id="ic-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6.4" height="6.4" rx="1.2"/><rect x="13.6" y="4" width="6.4" height="6.4" rx="1.2"/><rect x="4" y="13.6" width="6.4" height="6.4" rx="1.2"/><path d="M13.6 13.6h3v3m3.4 0v3.4h-3.4"/></symbol>
+    <symbol id="ic-image" viewBox="0 0 24 24"><rect x="3.8" y="5" width="16.4" height="14" rx="2.2"/><circle cx="8.8" cy="10" r="1.6"/><path d="m4.6 17 4.8-4.4 4 3.4 2.8-2.2 3.2 2.8"/></symbol>
+    <symbol id="ic-rain" viewBox="0 0 24 24"><path d="M7.6 14.6a3.6 3.6 0 0 1-.4-7.2 4.8 4.8 0 0 1 9.2 1.1h.4a3.1 3.1 0 0 1 0 6.1Z"/><path d="M9 17.6 8 20m4-2.4L11 20m4-2.4L14 20"/></symbol>
+    <symbol id="ic-moon" viewBox="0 0 24 24"><path d="M19.4 14.6A8 8 0 0 1 9.4 4.6a8 8 0 1 0 10 10Z"/></symbol>
+    <symbol id="ic-expand" viewBox="0 0 24 24"><path d="M9 4.6H4.6V9m10.4-4.4h4.4V9M9 19.4H4.6V15m10.4 4.4h4.4V15"/></symbol>
+    <symbol id="ic-bell" viewBox="0 0 24 24"><path d="M6.6 17.2V11a5.4 5.4 0 1 1 10.8 0v6.2Zm0 0h10.8M10.4 20h3.2"/></symbol>
+    <symbol id="ic-fog" viewBox="0 0 24 24"><path d="M4.4 9h15.2M6.4 13h11.2M4.4 17h15.2"/></symbol>
+    <symbol id="ic-snow" viewBox="0 0 24 24"><path d="M12 3.6v16.8M4.7 7.8l14.6 8.4M19.3 7.8 4.7 16.2"/></symbol>
+    <symbol id="ic-bolt" viewBox="0 0 24 24"><path d="M13.4 3.2 6 13.4h5l-.4 7.4L18 10.6h-5Z"/></symbol>
+    <symbol id="ic-close" viewBox="0 0 24 24"><path d="M6.4 6.4 17.6 17.6M17.6 6.4 6.4 17.6"/></symbol>
+    <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="3.8"/><path d="M4.8 20c.7-3.7 3.7-5.6 7.2-5.6s6.5 1.9 7.2 5.6"/></symbol>
+    <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 3.6 19 6v6c0 4.2-3 7-7 8.4C8 19 5 16.2 5 12V6Z"/></symbol>
+    <symbol id="ic-lock" viewBox="0 0 24 24"><rect x="5.2" y="10.4" width="13.6" height="9.4" rx="2.4"/><path d="M8.4 10.4V7.8a3.6 3.6 0 0 1 7.2 0v2.6"/></symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24"><path d="m5 12.6 4.6 4.6L19 7.8"/></symbol>
+    <symbol id="ic-friends" viewBox="0 0 24 24"><circle cx="9" cy="8.6" r="3.3"/><path d="M3.4 19.4c.6-3.2 2.9-4.9 5.6-4.9s5 1.7 5.6 4.9"/><circle cx="16.6" cy="9.4" r="2.6"/><path d="M15.8 14.6c2.4-.2 4.3 1.2 4.8 3.9"/></symbol>
+    <symbol id="ic-dice" viewBox="0 0 24 24"><rect x="4.4" y="4.4" width="15.2" height="15.2" rx="3.6"/><circle cx="9" cy="9" r=".9"/><circle cx="15" cy="9" r=".9"/><circle cx="12" cy="12" r=".9"/><circle cx="9" cy="15" r=".9"/><circle cx="15" cy="15" r=".9"/></symbol>
+    <symbol id="ic-spark" viewBox="0 0 24 24"><path d="M12 3.6 13.8 9l5.4 1.8-5.4 1.8L12 18l-1.8-5.4L4.8 10.8 10.2 9Z"/></symbol>
+    <symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 3.4v2.2M12 18.4v2.2M20.6 12h-2.2M5.6 12H3.4m14.1-6.1-1.6 1.6M8.1 15.9l-1.6 1.6m11 0-1.6-1.6M8.1 8.1 6.5 6.5"/></symbol>
+    <symbol id="ic-mail" viewBox="0 0 24 24"><rect x="3.6" y="5.4" width="16.8" height="13.2" rx="2.2"/><path d="m4.4 7.4 7.6 5.4 7.6-5.4"/></symbol>
+    <symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2.8 12s3.4-6.2 9.2-6.2 9.2 6.2 9.2 6.2-3.4 6.2-9.2 6.2S2.8 12 2.8 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+    <symbol id="ic-eye-off" viewBox="0 0 24 24"><path d="M9.9 6.1A9.6 9.6 0 0 1 12 5.8c5.8 0 9.2 6.2 9.2 6.2a16 16 0 0 1-2.7 3.4M6.6 7.7A15.4 15.4 0 0 0 2.8 12s3.4 6.2 9.2 6.2a9.3 9.3 0 0 0 4.6-1.2M9.9 10a2.8 2.8 0 0 0 4.1 4M4.4 4.4l15.2 15.2"/></symbol>
+  </svg>
+  <div class="app" id="app">
+    <div class="cinematic-bg" id="cinematicBg" aria-hidden="true"></div>
+    <video class="home-video" id="homeVideo" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1"></video>
+    <div class="color-wash" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="film-grain" aria-hidden="true"></div>
+    <div class="night-stars" id="nightStars" aria-hidden="true"></div>
+    <div class="meteors" id="meteors" aria-hidden="true"></div>
+    <div class="leaves" id="leaves" aria-hidden="true"></div>
+    <div class="embers" id="embers" aria-hidden="true"></div>
+    <canvas class="rain-canvas" id="rainCanvas" aria-hidden="true"></canvas>
+
+    <header class="topbar">
+      <button class="round-control home-control" id="homeButton" type="button" aria-label="На главный экран" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-home"/></svg></button>
+      <button class="round-control sound-button" id="soundButton" type="button" aria-label="Включить аудио" aria-pressed="false" hidden>
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <div class="topbar-spacer"></div>
+      <button class="round-control ranking-button" id="rankingButton" type="button" aria-label="Рейтинг"><svg class="top-trophy" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><defs><linearGradient id="topTrophyGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#f2b43a"/><stop offset="1" stop-color="#b9750f"/></linearGradient></defs><path d="M9 6h14v6a7 7 0 0 1-14 0Z" fill="url(#topTrophyGold)"/><path d="M9 8H5.5a4 4 0 0 0 4.2 5.4M23 8h3.5a4 4 0 0 1-4.2 5.4" fill="none" stroke="#d99a22" stroke-width="2" stroke-linecap="round"/><path d="M14 18.5h4l.8 4h-5.6Z" fill="#d99a22"/><rect x="10.5" y="22.5" width="11" height="4" rx="1.4" fill="url(#topTrophyGold)"/><path d="M12.4 8.4c.2 2.6 1 4.4 2.6 5.6" fill="none" stroke="#fff6d6" stroke-width="1.4" stroke-linecap="round" opacity=".85"/></svg></button>
+      <button class="round-control language-button" id="languageButton" type="button" aria-label="Изменить язык">RU</button>
+      <button class="round-control" id="libraryButton" type="button" aria-label="Коллекция писем"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-heart"/></svg></button>
+      <button class="round-control" id="settingsButton" type="button" aria-label="Настройки"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-dots"/></svg></button>
+    </header>
+
+    <div class="app-update" id="appUpdateBanner" role="status" aria-live="polite" hidden>
+      <svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-spark"/></svg>
+      <p class="app-update-text" id="appUpdateText">Вышла новая версия GlowLetter</p>
+      <button class="app-update-action" id="appUpdateAction" type="button">Обновить</button>
+      <button class="app-update-close" id="appUpdateClose" type="button" aria-label="Скрыть"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-close"/></svg></button>
+    </div>
+
+    <main>
+      <section class="home-screen" id="homeScreen" aria-label="Главный экран">
+        <div class="home-brand" aria-hidden="true"><b>GlowLetter<svg viewBox="0 0 24 24" focusable="false"><path d="M12 20.7 4.3 13a4.6 4.6 0 0 1 6.5-6.5l1.2 1.2 1.2-1.2A4.6 4.6 0 0 1 19.7 13Z"/></svg></b><small id="homeBrandTagline">Тёплые слова находят путь</small></div>
+        <div class="home-hero">
+        <div class="brand-card">
+          <h1>Тёплые слова<br /><em>находят путь</em></h1>
+          <p class="brand-copy">Тёплые слова для тех, кто действительно важен.</p>
+        </div>
+          <p class="sender-line" hidden></p>
+          <button class="seal-button" id="openStoryButton" type="button">
+            <span class="seal-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="seal-mark" aria-hidden="true">
+              <span class="seal-heart">
+                <svg class="seal-heart-core" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.7 4.3 13a4.6 4.6 0 0 1 0-6.5 4.6 4.6 0 0 1 6.5 0l1.2 1.2 1.2-1.2a4.6 4.6 0 0 1 6.5 0 4.6 4.6 0 0 1 0 6.5Z"/></svg>
+                <i class="seal-heart-shine"></i>
+                <i class="seal-heart-spark seal-heart-spark-one"></i>
+                <i class="seal-heart-spark seal-heart-spark-two"></i>
+              </span>
+            </span>
+            <span>Открыть письмо</span>
+            <svg class="seal-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="home-bottom">
+          <div class="online-strip" id="onlineStrip" hidden></div>
+          <div class="home-smart-actions">
+            <button class="smart-link moments-link shop-link" id="shopOpenHome" type="button" data-open-shop><span><svg class="ic home-basket" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><defs><linearGradient id="homeBasketGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".55" stop-color="#f2c46f"/><stop offset="1" stop-color="#b47c28"/></linearGradient></defs><path d="M7.4 9.4 10.7 3.9M16.6 9.4 13.3 3.9" stroke="url(#homeBasketGold)" stroke-width="1.8"/><path d="M2.9 9.1h18.2a.9.9 0 0 1 .88 1.1l-1.88 8.3a2.2 2.2 0 0 1-2.15 1.7H6.05a2.2 2.2 0 0 1-2.15-1.7L2.02 10.2a.9.9 0 0 1 .88-1.1Z" fill="url(#homeBasketGold)" stroke="none"/><path d="M8.7 12.4v4.9M12 12.4v4.9M15.3 12.4v4.9" stroke="#6b4614" stroke-width="1.4" opacity=".6"/></svg></span> <span id="shopOpenHomeLabel">Магазин</span></button>
+            <button class="smart-link games-link" id="gamesOpenHome" type="button"><span><svg class="ic home-die" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><defs><linearGradient id="homeDieFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb0bd"/><stop offset="1" stop-color="#ec6f86"/></linearGradient></defs><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="4.2" fill="url(#homeDieFill)" stroke="#ffd0d8" stroke-width=".8"/><g fill="#fff"><circle cx="8.6" cy="8.6" r="1.35"/><circle cx="15.4" cy="8.6" r="1.35"/><circle cx="12" cy="12" r="1.35"/><circle cx="8.6" cy="15.4" r="1.35"/><circle cx="15.4" cy="15.4" r="1.35"/></g></svg></span> <span id="gamesOpenHomeLabel">Игры для двоих</span> <b class="replies-badge" id="gamesResultsBadge" hidden>0</b></button>
+            <button class="smart-link couple-link" id="coupleOpenHome" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-heart"/></svg> <span id="coupleOpenHomeLabel">Мы вдвоём</span> <b class="replies-badge" id="coupleBadge" hidden>0</b></button>
+            <button class="smart-link friends-link" id="friendsOpenHome" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-friends"/></svg> <span id="friendsOpenHomeLabel">Друзья</span> <b class="replies-badge" id="friendsBadge" hidden>0</b></button>
+            <button class="smart-link world-link" id="worldOpenHome" type="button"><span class="world-globe" aria-hidden="true">🌍</span> <span id="worldOpenHomeLabel">Наш мир</span> <svg class="world-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> <b class="replies-badge" id="worldBadge" hidden>1</b></button>
+            <button class="smart-link home-poem-link" id="homeNewPoem" type="button" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-note"/></svg> <span id="homeNewPoemLabel">Новое в коллекции</span></button>
+            <button class="smart-link home-signin-link" id="homeSignIn" type="button" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-user"/></svg> <span id="homeSignInLabel">Войти — покупки и прогресс сохранятся</span></button>
+          </div>
+          <section class="home-quick" id="homeQuick" aria-labelledby="homeQuickTitle">
+            <h2><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.7 4.3 13a4.6 4.6 0 0 1 6.5-6.5l1.2 1.2 1.2-1.2A4.6 4.6 0 0 1 19.7 13Z"/></svg><span id="homeQuickTitle">Быстрые действия</span></h2>
+            <div class="home-quick-grid">
+              <button type="button" class="home-quick-moments" id="momentsOpenHome"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-clock"/></svg></span> Мои моменты <b class="replies-badge" id="momentsRepliesBadge" hidden>0</b></button>
+              <button type="button" data-home-quick="write"><span class="home-quick-ic" aria-hidden="true">💌</span><span id="homeQuickWrite">Написать письмо</span></button>
+              <button type="button" data-home-quick="draw"><span class="home-quick-ic" aria-hidden="true">🎨</span><span id="homeQuickDraw">Рисовать вместе</span></button>
+              <button type="button" data-home-quick="bear"><span class="home-quick-ic" aria-hidden="true">🧸</span><span id="homeQuickBear">Тёпа в гости</span></button>
+              <button type="button" data-home-quick="sticker"><span class="home-quick-ic" aria-hidden="true">💝</span><span id="homeQuickStickers">Наклейки</span></button>
+              <button type="button" class="home-quick-durak" data-open-durak><span class="home-quick-ic" aria-hidden="true">🃏</span><span id="homeQuickDurak">Дурак</span></button>
+              <button type="button" class="home-quick-checkers" data-open-checkers><span class="home-quick-ic" aria-hidden="true">⚪</span><span id="homeQuickCheckers">Шашки</span></button>
+              <button type="button" class="home-quick-shop" data-open-shop><span class="home-quick-ic" aria-hidden="true">🎁</span><span id="homeQuickShop">Магазин</span></button>
+            </div>
+          </section>
+          <p class="free-note"><span>10 писем бесплатно</span><i></i><span>полный доступ — <span class="price-label">7,99 €/месяц</span></span></p>
+          <a class="home-contact" id="homeContact" href="mailto:ggooglov9@gmail.com?subject=GlowLetter"><span id="homeContactLabel">Сотрудничество и предложения</span><b>ggooglov9@gmail.com</b></a>
+        </div>
+      </section>
+
+      <section class="letter-stage" id="letterStage" hidden aria-live="polite">
+        <div class="stage-caption">
+          <span class="caption-line"></span>
+          <p id="stageCaption">Вечер сохранил эти слова для тебя</p>
+          <span class="caption-line"></span>
+        </div>
+
+        <article class="letter" id="letter" aria-labelledby="letterTitle">
+          <div class="paper-edge" aria-hidden="true"></div>
+          <header class="letter-meta">
+            <span><span id="letterForLabel">для</span> <strong id="letterTo">получателя</strong></span>
+            <span id="letterNumber">01 / 50</span>
+          </header>
+          <h2 id="letterTitle">Несколько слов для тебя</h2>
+          <p class="letter-text" id="letterText"></p>
+          <small class="letter-author" id="letterAuthor" hidden></small>
+          <footer class="signature">
+            <span>С теплом,</span>
+            <strong id="letterFrom">отправитель</strong>
+          </footer>
+          <button class="paper-copy" id="copyLetter" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-copy"/></svg> Копировать текст</button>
+        </article>
+
+        <nav class="letter-actions" aria-label="Переключение писем">
+          <button class="glass-action" id="previousLetter" type="button" aria-label="Предыдущее письмо">←</button>
+          <button class="main-action" id="nextLetter" type="button">Следующее письмо <span>→</span></button>
+        </nav>
+        <div class="secondary-actions">
+          <button class="glass-action share-letter-action" id="shareButton" type="button" aria-label="Поделиться письмом">
+            <span class="share-letter-icon" aria-hidden="true">
+              <i class="share-line share-line-top"></i>
+              <i class="share-line share-line-bottom"></i>
+              <i class="share-node share-node-start"></i>
+              <i class="share-node share-node-top"></i>
+              <i class="share-node share-node-bottom"></i>
+            </span>
+            <span id="shareButtonLabel">Поделиться</span>
+          </button>
+          <button id="favoriteButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-bookmark"/></svg> Сохранить</button>
+          <button class="go-home home-return" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-home"/></svg> На главную</button>
+        </div>
+        <button class="content-report-link" id="reportLetterButton" type="button" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-flag"/></svg> Пожаловаться на письмо</button>
+        <section class="reply-bar" id="replyBar" aria-labelledby="replyTitle" hidden>
+          <h3 id="replyTitle">Ответить отправителю</h3>
+          <p id="replyLead">Один тап, и отправитель узнает, что письмо дошло.</p>
+          <div class="reply-reactions" id="replyReactions">
+            <button type="button" data-reaction="heart" aria-pressed="false"><span aria-hidden="true">❤️</span> <span id="reactionHeartLabel">Тронуло</span></button>
+            <button type="button" data-reaction="thanks" aria-pressed="false"><span aria-hidden="true">🙏</span> <span id="reactionThanksLabel">Спасибо</span></button>
+            <button type="button" data-reaction="smile" aria-pressed="false"><span aria-hidden="true">😊</span> <span id="reactionSmileLabel">Улыбаюсь</span></button>
+            <button type="button" data-reaction="tears" aria-pressed="false"><span aria-hidden="true">🥹</span> <span id="reactionTearsLabel">До слёз</span></button>
+          </div>
+          <label class="reply-field" id="replyField" for="replyMessage"><span id="replyMessageLabel">Пара слов · необязательно</span><textarea id="replyMessage" maxlength="240" rows="2" autocomplete="off"></textarea></label>
+          <div class="reply-actions">
+            <button id="replySend" type="button"><span id="replySendLabel">Отправить</span></button>
+            <button id="saveLetterButton" type="button"><span id="saveLetterLabel">Сохранить письмо себе</span></button>
+          </div>
+          <p class="reply-status" id="replyStatus" role="status" aria-live="polite"></p>
+        </section>
+      </section>
+    </main>
+
+    <div class="panel-layer center-layer" id="setupLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="setupBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="setup-card" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+        <button class="panel-close setup-close" id="setupClose" type="button" aria-label="Закрыть">×</button>
+        <h2 id="setupTitle">Для кого это письмо?</h2>
+        <p class="setup-note">Имена нужны только для личного обращения и подписи.</p>
+        <form id="setupForm">
+          <div class="simple-form">
+            <label><span>От кого</span><input id="setupSenderName" dir="auto" maxlength="36" autocomplete="name" placeholder="Ваше имя" /></label>
+            <label><span>Для кого</span><input id="setupRecipientName" dir="auto" maxlength="36" autocomplete="off" placeholder="Имя получателя" /></label>
+          </div>
+          <div class="publication-audio setup-audio" id="setupAudio">
+            <button class="publication-audio-pick" id="setupAudioButton" type="button" aria-pressed="false"><i><svg class="ic" aria-hidden="true" focusable="false"><use id="setupAudioIcon" href="#ic-plus"/></svg></i><span><strong id="setupAudioTitle">Добавить своё аудио</strong><small id="setupAudioNote">Получатель услышит его, открыв письмо · MP3, M4A, AAC, OGG или WAV · до 12 МБ</small></span></button>
+            <div class="publication-audio-actions"><button id="setupAudioRemove" type="button" hidden>× Убрать аудио</button></div>
+          </div>
+          <p class="setup-error" id="setupError" hidden>Введите обычные имена или семейные роли.</p>
+          <button class="generate-button" type="submit"><span class="generate-spark"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-heart"/></svg></span><span id="setupSubmitLabel">Открыть письмо</span><i>→</i></button>
+        </form>
+        <button class="setup-home go-home" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-home"/></svg> На главную</button>
+      </section>
+    </div>
+
+    <div class="panel-layer" id="libraryLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="libraryBackdrop" type="button" aria-label="Закрыть коллекцию"></button>
+      <section class="side-panel library-panel" role="dialog" aria-modal="true" aria-labelledby="libraryTitle">
+        <header class="panel-header sticky-header">
+          <div><h2 id="libraryTitle">Коллекция</h2></div>
+          <div class="panel-header-actions"><button class="panel-home go-home" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-home"/></svg> На главную</button><button class="panel-close" id="libraryClose" type="button" aria-label="Закрыть">×</button></div>
+        </header>
+        <p class="library-pick-note" id="libraryPickNote" hidden></p>
+        <div class="library-summary"><strong id="accessLabel">10 писем открыто</strong><span>Каждый текст автоматически обращается к выбранному человеку.</span></div>
+        <div class="category-row" id="categoryRow" role="tablist">
+          <button class="is-active" data-category="all" type="button">Все</button>
+          <button data-category="warm" type="button">Тепло</button>
+          <button data-category="gratitude" type="button">Спасибо</button>
+          <button data-category="support" type="button">Поддержка</button>
+          <button data-category="family" type="button">Семья</button>
+          <button data-category="poem" type="button" hidden>Стихи</button>
+        </div>
+        <div class="quote-list" id="quoteList"></div>
+      </section>
+    </div>
+
+    <div class="panel-layer" id="settingsLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="settingsBackdrop" type="button" aria-label="Закрыть настройки"></button>
+      <section class="side-panel settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <header class="panel-header">
+          <div><h2 id="settingsTitle">Настроение</h2></div>
+          <div class="panel-header-actions"><button class="panel-home go-home" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-home"/></svg> На главную</button><button class="panel-close" id="settingsClose" type="button" aria-label="Закрыть">×</button></div>
+        </header>
+
+        <details class="settings-section" open>
+          <summary id="settingsLetterTitle">Письмо</summary>
+          <div class="settings-section-body">
+        <fieldset class="profile-picker">
+          <legend>Личное обращение</legend>
+          <div class="simple-form">
+            <label><span>От кого</span><input id="settingsSenderName" type="text" dir="auto" maxlength="36" autocomplete="name" placeholder="Ваше имя" /></label>
+            <label><span>Для кого</span><input id="settingsRecipientName" type="text" dir="auto" maxlength="36" autocomplete="off" placeholder="Имя получателя" /></label>
+          </div>
+          <p class="setup-error" id="settingsNamesError" hidden>Введите обычные имена или семейные роли.</p>
+        </fieldset>
+
+        <fieldset class="language-picker">
+          <legend>Язык приложения и писем</legend>
+          <button class="is-active" type="button" data-lang="ru" lang="ru">RU <span>Русский</span></button>
+          <button type="button" data-lang="en" lang="en">EN <span>English</span></button>
+          <button type="button" data-lang="fr" lang="fr">FR <span>Français</span></button>
+          <button type="button" data-lang="de" lang="de">DE <span>Deutsch</span></button>
+          <button type="button" data-lang="es" lang="es">ES <span>Español</span></button>
+          <button type="button" data-lang="it" lang="it">IT <span>Italiano</span></button>
+          <button type="button" data-lang="pl" lang="pl">PL <span>Polski</span></button>
+          <button type="button" data-lang="uk" lang="uk">UK <span>Українська</span></button>
+          <button type="button" data-lang="pt" lang="pt">PT <span>Português</span></button>
+          <button type="button" data-lang="tr" lang="tr">TR <span>Türkçe</span></button>
+          <button type="button" data-lang="ja" lang="ja">JA <span>日本語</span></button>
+          <button type="button" data-lang="ko" lang="ko">KO <span>한국어</span></button>
+          <button type="button" data-lang="zh" lang="zh-Hant">ZH <span>繁體中文</span></button>
+          <button type="button" data-lang="ar" lang="ar">AR <span>العربية</span></button>
+          <button type="button" data-lang="ind" lang="id">IND <span>Bahasa Indonesia</span></button>
+        </fieldset>
+
+          </div>
+        </details>
+
+
+        <details class="settings-section">
+          <summary id="settingsLookTitle">Оформление</summary>
+          <div class="settings-section-body">
+        <fieldset class="scene-picker theme-picker">
+          <legend id="scenePickerTitle">Тема</legend>
+          <div class="scene-grid theme-grid" role="radiogroup" aria-labelledby="scenePickerTitle">
+            <button type="button" role="radio" aria-checked="false" data-theme-id="alps" data-look="light"><img src="assets/scenes/alpine-lake-thumb.webp" alt="" width="270" height="480" loading="lazy" decoding="async" /><span>Горное озеро</span><em>Светлая</em></button>
+            <button type="button" role="radio" aria-checked="false" data-theme-id="morning" data-look="light"><img src="assets/scenes/sea-morning-thumb.webp" alt="" width="270" height="480" loading="lazy" decoding="async" /><span>Утро у моря</span><em>Светлая</em></button>
+            <button type="button" role="radio" aria-checked="false" data-theme-id="sunset" data-look="dark"><img src="assets/scenes/sea-sunset-thumb.webp" alt="" width="270" height="480" loading="lazy" decoding="async" /><span>Закат у моря</span><em>Тёмная</em></button>
+            <button type="button" role="radio" aria-checked="false" data-theme-id="mountains" data-look="dark"><img src="assets/scenes/mountain-sunset-thumb.webp" alt="" width="270" height="480" loading="lazy" decoding="async" /><span>Закат в горах</span><em>Тёмная</em></button>
+            <button type="button" role="radio" aria-checked="false" data-theme-id="aurora" data-look="dark"><img src="assets/scenes/aurora-thumb.webp" alt="" width="270" height="480" loading="lazy" decoding="async" /><span>Северное сияние</span><em>Тёмная</em></button>
+            <button type="button" role="radio" aria-checked="false" data-theme-id="cabin" data-look="dark"><img src="assets/scenes/cabin-night-thumb.webp" alt="" width="270" height="480" loading="lazy" decoding="async" /><span>Ночной домик</span><em>Тёмная</em></button>
+          </div>
+        </fieldset>
+          </div>
+        </details>
+
+        <details class="settings-section">
+          <summary id="settingsSoundTitle">Звук</summary>
+          <div class="settings-section-body">
+        <fieldset class="track-picker">
+          <legend>Аудио письма</legend>
+          <button class="track-option custom-track" id="customTrackButton" type="button"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-plus"/></svg></i><span><strong>Добавить своё аудио</strong><small id="customTrackName">MP3, M4A, AAC, OGG или WAV · до 12 МБ</small></span><b><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></b></button>
+          <button class="audio-remove" id="removeAudioButton" type="button" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-close"/></svg> Убрать аудио</button>
+          <small class="audio-share-note" id="audioShareNote">В персональной ссылке аудио доступно получателю до 12 часов.</small>
+          <input class="visually-hidden" id="customTrackInput" type="file" accept="audio/mpeg,audio/mp4,audio/aac,audio/ogg,audio/wav,.mp3,.m4a,.aac,.ogg,.wav" />
+        </fieldset>
+          </div>
+        </details>
+
+        <details class="settings-section">
+          <summary id="settingsAccountTitle">Аккаунт</summary>
+          <div class="settings-section-body">
+        <section class="account-card" id="accountCard" aria-labelledby="accountTitle" data-signed-in="false">
+          <div class="account-heading">
+            <span class="account-mark" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-user"/></svg></span>
+            <div><strong id="accountTitle">Аккаунт и синхронизация</strong><small id="accountStatus" role="status" aria-live="polite">Проверяю вход…</small></div>
+          </div>
+          <div class="account-guest" id="accountGuest">
+            <p id="accountGuestNote">Сохраните письма и настройки на всех своих устройствах.</p>
+            <div class="account-actions">
+              <button class="oauth-button google" id="googleSignIn" type="button" hidden disabled><b aria-hidden="true">G</b><span>Продолжить с Google</span></button>
+              <button class="oauth-button apple" id="appleSignIn" type="button" hidden disabled><img id="appleSignInArtwork" src="assets/auth/apple-continue-ru.png" alt="" width="375" height="44" /><span class="visually-hidden">Продолжить с Apple</span></button>
+              <button class="oauth-button facebook" id="facebookSignIn" type="button" hidden disabled><b aria-hidden="true">f</b><span>Продолжить с Facebook</span></button>
+            </div>
+            <section class="email-auth" id="emailAuth" aria-labelledby="emailAuthTitle">
+              <div class="email-auth-divider"><span></span><b id="emailAuthOr">или по e-mail</b><span></span></div>
+              <h3 class="visually-hidden" id="emailAuthTitle">Вход или регистрация по e-mail</h3>
+              <div class="email-auth-tabs" role="tablist">
+                <button class="is-active" id="emailLoginTab" type="button" role="tab" aria-selected="true" aria-controls="emailLoginPane">Войти</button>
+                <button id="emailRegisterTab" type="button" role="tab" aria-selected="false" aria-controls="emailRegisterPane">Регистрация</button>
+              </div>
+              <form class="email-auth-form" id="emailLoginPane" autocomplete="on">
+                <label><span id="emailLoginEmailLabel">E-mail</span><input id="emailLoginEmail" type="email" autocomplete="email" maxlength="254" required /></label>
+                <label><span id="emailLoginPasswordLabel">Пароль</span><input id="emailLoginPassword" type="password" autocomplete="current-password" minlength="8" maxlength="128" required /></label>
+                <button class="email-auth-primary" id="emailLoginSubmit" type="submit">Войти</button>
+                <button class="email-auth-secondary" id="emailLoginWithCode" type="button">Войти по коду из письма</button>
+                <button class="email-auth-secondary" id="emailForgotPassword" type="button">Забыли пароль?</button>
+              </form>
+              <form class="email-auth-form" id="emailRegisterPane" autocomplete="on" hidden>
+                <label><span id="emailRegisterNameLabel">Ваше имя</span><input id="emailRegisterName" type="text" dir="auto" autocomplete="name" maxlength="60" /></label>
+                <label><span id="emailRegisterEmailLabel">E-mail</span><input id="emailRegisterEmail" type="email" autocomplete="email" maxlength="254" required /></label>
+                <label><span id="emailRegisterPasswordLabel">Придумайте пароль</span><input id="emailRegisterPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" required /></label>
+                <small id="emailPasswordHint">Минимум 8 символов. Никому не сообщайте пароль и код.</small>
+                <button class="email-auth-primary" id="emailRegisterSubmit" type="submit">Получить код</button>
+              </form>
+              <form class="email-auth-form email-code-form" id="emailVerifyPane" autocomplete="one-time-code" hidden>
+                <div class="email-code-heading"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-mail"/></svg></span><div><strong id="emailCodeTitle">Введите код из письма</strong><small id="emailCodeSentTo"></small></div></div>
+                <label><span id="emailCodeLabel">Код подтверждения</span><input id="emailCode" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required /></label>
+                <button class="email-auth-primary" id="emailVerifySubmit" type="submit">Подтвердить e-mail</button>
+                <button class="email-auth-secondary" id="emailResendCode" type="button">Отправить код ещё раз</button>
+                <button class="email-auth-secondary" id="emailChangeAddress" type="button">Изменить e-mail</button>
+              </form>
+              <form class="email-auth-form" id="emailNewPasswordPane" autocomplete="on" hidden>
+                <div class="email-code-heading"><span aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-lock"/></svg></span><div><strong id="emailNewPasswordTitle">Придумайте новый пароль</strong><small id="emailNewPasswordNote">Минимум 8 символов. Никому его не сообщайте.</small></div></div>
+                <label><span id="emailNewPasswordLabel">Новый пароль</span><input id="emailNewPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" required /></label>
+                <button class="email-auth-primary" id="emailNewPasswordSubmit" type="submit">Сохранить пароль</button>
+              </form>
+              <p class="email-auth-status" id="emailAuthStatus" role="status" aria-live="polite"></p>
+            </section>
+          </div>
+          <div class="account-user" id="accountUser" hidden>
+            <button class="account-avatar-button" id="accountAvatarButton" type="button" aria-label="Изменить фото профиля">
+              <img id="accountAvatarImage" alt="" hidden />
+              <span class="account-avatar" id="accountAvatar" aria-hidden="true">G</span>
+              <span class="account-avatar-edit"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-image"/></svg></span>
+            </button>
+            <input id="accountAvatarInput" type="file" accept="image/*" hidden />
+            <div class="account-profile-copy">
+              <p><strong id="accountUserName">GlowLetter</strong><small id="accountUserEmail"></small></p>
+              <div class="account-plan-line">
+                <b class="account-admin-badge" id="accountAdminBadge" hidden>АДМИНИСТРАТОР</b>
+                <b class="account-plan-badge" id="accountPlanBadge" data-plan="checking">…</b>
+                <small class="account-plan-status" id="accountPlanStatus" role="status" aria-live="polite">План: проверяется…</small>
+              </div>
+            </div>
+            <div class="account-user-actions">
+              <button class="account-notification-button" id="notificationBell" type="button" aria-label="Уведомления" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg>
+                <span id="notificationBellLabel">Уведомления</span>
+                <b id="notificationUnreadBadge" aria-hidden="true" hidden>0</b>
+              </button>
+              <button id="accountSignOut" type="button">Выйти</button><button class="account-delete" id="accountDelete" type="button">Удалить аккаунт</button>
+            </div>
+          </div>
+          <div class="account-password" id="accountPassword" hidden>
+            <button class="install-button" id="accountPasswordToggle" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-lock"/></svg> Задать пароль для входа</button>
+            <form class="account-password-form" id="accountPasswordForm" autocomplete="on" hidden>
+              <label class="email-auth-field" for="accountPasswordInput"><span id="accountPasswordLabel">Новый пароль</span><input id="accountPasswordInput" type="password" autocomplete="new-password" minlength="8" maxlength="128" required /></label>
+              <label class="email-auth-field" for="accountPasswordConfirm"><span id="accountPasswordConfirmLabel">Повторите пароль</span><input id="accountPasswordConfirm" type="password" autocomplete="new-password" minlength="8" maxlength="128" required /></label>
+              <p class="account-password-note" id="accountPasswordNote">Минимум 8 символов. После сохранения можно будет входить по адресу и паролю, а не только по коду.</p>
+              <p class="account-password-status" id="accountPasswordStatus" role="status" aria-live="polite"></p>
+              <button class="email-auth-primary" id="accountPasswordSubmit" type="submit">Сохранить пароль</button>
+            </form>
+          </div>
+          <div class="account-support" id="accountSupport" hidden>
+            <div class="account-support-id">
+              <span>ID для поддержки</span>
+              <code id="accountSupportId">—</code>
+            </div>
+            <button class="account-id-copy" id="copyAccountId" type="button" aria-label="Скопировать ID аккаунта"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-copy"/></svg> Скопировать</button>
+            <small class="account-support-note" id="accountSupportNote">Это не пароль. Передавайте ID только официальной поддержке GlowLetter.</small>
+          </div>
+          <p class="account-privacy" id="accountPrivacyNote">Личное аудио хранится на устройстве; при отправке персональной ссылки временная копия доступна до 12 часов.</p>
+        </section>
+
+        <button class="admin-open-button" id="adminOpenButton" type="button" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-shield"/></svg><span id="adminOpenLabel">Админ-панель</span><i aria-hidden="true">→</i></button>
+          </div>
+        </details>
+
+        <details class="settings-section" id="settingsWallet">
+          <summary id="settingsWalletTitle">Светлячки и пин-код</summary>
+          <div class="settings-section-body" data-shop-settings></div>
+        </details>
+
+        <details class="settings-section">
+          <summary id="settingsAppTitle">Приложение</summary>
+          <div class="settings-section-body">
+        <section class="subscription-card" id="subscriptionCard" data-plan="checking" aria-labelledby="subscriptionTitle">
+          <div class="subscription-head">
+            <span class="subscription-mark" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-bookmark"/></svg></span>
+            <div class="subscription-copy">
+              <strong id="subscriptionTitle">Ваш доступ</strong>
+              <small id="subscriptionStatus" role="status" aria-live="polite">Проверяю доступ…</small>
+            </div>
+            <b class="subscription-badge" id="subscriptionBadge" data-plan="checking">…</b>
+          </div>
+          <p class="subscription-note" id="subscriptionNote"></p>
+          <div class="subscription-actions">
+            <button class="install-button" id="manageSubscriptionButton" type="button" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-clock"/></svg> Управление подпиской</button>
+            <button class="install-button" id="settingsRestoreButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-download"/></svg> Восстановить подписку</button>
+          </div>
+        </section>
+
+        <div class="premium-settings-card">
+          <h3>Откройте полный GlowLetter</h3>
+          <p>Подписка на месяц или на год: все письма, моменты и новые функции.</p>
+          <button id="settingsPurchase" type="button">Открыть полный доступ · <span class="price-label">7,99 €/месяц</span></button>
+        </div>
+
+        <button class="install-button" id="shareAppButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-share"/></svg> Поделиться приложением</button>
+        <button class="install-button" id="installButton" type="button" hidden><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-plus"/></svg> Установить GlowLetter</button>
+        <p class="install-hint" id="installHint" hidden>На iPhone: «Поделиться» → «На экран Домой».</p>
+        <a class="contact-card" id="contactLink" href="mailto:ggooglov9@gmail.com?subject=GlowLetter"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-mail"/></svg><span><strong id="contactTitle">Сотрудничество и предложения</strong><small id="contactNote">Покупка, партнёрство или идея — напишите нам</small><b>ggooglov9@gmail.com</b></span></a>
+        <div class="legal-links"><button class="go-home" type="button">На главный экран</button><a id="privacyLink" href="privacy.html">Конфиденциальность</a><a id="termsLink" href="terms.html">Условия</a><a id="deleteAccountLink" href="delete-account.html">Удаление аккаунта</a><button id="supportOpenButton" type="button">Поддержка</button></div>
+          </div>
+        </details>
+
+        <button class="save-settings" id="saveSettingsButton" type="button">Сохранить настройки</button>
+        <button class="install-button qr-open-button settings-primary-qr" id="qrOpenButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-qr"/></svg> Создать QR-код</button>
+
+      </section>
+    </div>
+
+    <div class="panel-layer" id="adminLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="adminBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="side-panel admin-screen" role="dialog" aria-modal="true" aria-labelledby="adminPanelTitle">
+        <div class="panel-header-actions admin-screen-close"><button class="panel-close" id="adminClose" type="button" aria-label="Закрыть">×</button></div>
+        <section class="admin-panel" id="adminPanel" aria-labelledby="adminPanelTitle" data-tab="accounts" hidden>
+          <header class="admin-panel-heading">
+            <span class="admin-panel-mark" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-shield"/></svg></span>
+            <div>
+              <h3 id="adminPanelTitle">Админ-панель</h3>
+            </div>
+          </header>
+          <nav class="admin-tabs" role="tablist" aria-label="Админ-панель"><button type="button" role="tab" aria-selected="true" data-admin-tab="accounts" id="adminTabAccounts">Аккаунты</button><button type="button" role="tab" aria-selected="false" data-admin-tab="catalog" id="adminTabCatalog">Стихи</button><button type="button" role="tab" aria-selected="false" data-admin-tab="bulk" id="adminTabBulk">Всем</button><button type="button" role="tab" aria-selected="false" data-admin-tab="reports" id="adminTabReports">Жалобы</button><button type="button" role="tab" aria-selected="false" data-admin-tab="games" id="adminTabGames">Игры</button><button type="button" role="tab" aria-selected="false" data-admin-tab="guard" id="adminTabGuard">Защита</button><button type="button" role="tab" aria-selected="false" data-admin-tab="suspects" id="adminTabSuspects">Подозрительные</button><button type="button" role="tab" aria-selected="false" data-admin-tab="log" id="adminTabLog">Журнал</button><button type="button" role="tab" aria-selected="false" data-admin-tab="stats" id="adminTabStats">Статистика</button></nav>
+          <p class="admin-panel-description">По ID видны только срок и статус доступа. Выдача и отзыв VIP записываются в защищённый журнал.</p>
+          <article class="admin-owner-card" id="adminOwnerCard" data-admin-pane="accounts" hidden></article>
+          <form class="admin-lookup-form" id="adminLookupForm" data-admin-pane="accounts">
+            <label for="adminSupportId">ID аккаунта</label>
+            <div class="admin-lookup-row">
+              <input id="adminSupportId" name="supportId" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="96" placeholder="Например, GL-7F3A…" aria-describedby="adminStatus" required />
+              <button id="adminLookupButton" type="submit">Найти</button>
+            </div>
+            <small class="admin-lookup-hint" id="adminLookupHint">ID аккаунта (GL-…) или e-mail</small>
+            <p class="admin-status" id="adminStatus" role="status" aria-live="polite"></p>
+          </form>
+          <article class="admin-account-card" id="adminAccountCard" data-admin-pane="accounts" hidden></article>
+          <div class="admin-result" id="adminResult" data-admin-pane="accounts" hidden>
+            <div class="admin-result-summary">
+              <p><span>ID</span><strong id="adminResultId">—</strong></p>
+              <p><span>Текущий план</span><strong id="adminResultPlan">—</strong></p>
+            </div>
+            <div class="admin-access-actions">
+              <label class="admin-days-field" for="adminVipDays"><span id="adminVipDaysLabel">Срок VIP</span><span><input id="adminVipDays" type="number" inputmode="numeric" min="1" max="365" step="1" value="30" /> <b id="adminVipDaysUnit">дней</b></span></label>
+              <label class="admin-notice-reason" for="adminVipReason"><span id="adminVipReasonLabel">Причина уведомления</span><select id="adminVipReason"><option value="gift">Подарок</option><option value="compensation">Компенсация</option><option value="promotion">Акция</option><option value="other">Другое</option></select></label>
+              <label class="admin-notice-message" for="adminVipMessage"><span id="adminVipMessageLabel">Личное сообщение · необязательно</span><textarea id="adminVipMessage" dir="auto" maxlength="240" rows="3" placeholder="Например: спасибо, что помогли нам улучшить GlowLetter" aria-describedby="adminVipMessageHint adminVipMessageCount"></textarea></label>
+              <div class="admin-notice-meta"><small id="adminVipMessageHint">Получатель увидит это сообщение внутри приложения.</small><output id="adminVipMessageCount" for="adminVipMessage">0 / 240</output></div>
+              <button id="adminGrantVip" type="button">Выдать VIP</button>
+              <button id="adminGrantForever" type="button">Выдать без срока</button>
+              <button class="admin-revoke" id="adminRevokeVip" type="button">Отозвать VIP</button>
+            </div>
+          </div>
+          <div class="admin-bulk" data-admin-pane="bulk">
+            <h4 id="adminBulkTitle">Всем пользователям</h4>
+            <p class="admin-bulk-note" id="adminBulkNote">VIP получат все, кроме админов и тех, у кого доступ без срока. Дни добавляются к оставшемуся сроку.</p>
+            <div class="admin-access-actions">
+              <label class="admin-days-field" for="adminBulkDays"><span id="adminBulkDaysLabel">Срок VIP</span><span><input id="adminBulkDays" type="number" inputmode="numeric" min="1" max="365" step="1" value="30" /> <b id="adminBulkDaysUnit">дней</b></span></label>
+              <label class="admin-notice-reason" for="adminBulkReason"><span id="adminBulkReasonLabel">Причина уведомления</span><select id="adminBulkReason"><option value="gift">Подарок</option><option value="compensation">Компенсация</option><option value="promotion">Акция</option><option value="other">Другое</option></select></label>
+              <label class="admin-notice-message" for="adminBulkMessage"><span id="adminBulkMessageLabel">Личное сообщение · необязательно</span><textarea id="adminBulkMessage" dir="auto" maxlength="240" rows="3" placeholder="Например: спасибо, что помогли нам улучшить GlowLetter"></textarea></label>
+              <button id="adminGrantAll" type="button">Выдать VIP всем</button>
+              <button class="admin-revoke" id="adminRevokeAll" type="button">Отозвать VIP у всех</button>
+            </div>
+          </div>
+          <div class="admin-overview" id="adminOverview" data-admin-pane="accounts" hidden>
+            <div class="admin-overview-head"><h4 id="adminRecentTitle">Последние аккаунты</h4><button id="adminRefresh" type="button">Обновить</button></div>
+            <div class="admin-stats">
+              <p><span id="adminStatTotalLabel">Аккаунтов</span><strong id="adminStatTotal">—</strong></p>
+              <p><span id="adminStatVipLabel">VIP сейчас</span><strong id="adminStatVip">—</strong></p>
+              <p><span id="adminStatForeverLabel">Без срока</span><strong id="adminStatForever">—</strong></p>
+              <p><span id="adminStatNewLabel">Новых за 7 дней</span><strong id="adminStatNew">—</strong></p>
+            </div>
+            <ul class="admin-recent" id="adminRecentList"></ul>
+          </div>
+          <div class="admin-bulk admin-reports" id="adminReports" data-admin-pane="reports">
+            <div class="admin-overview-head"><h4>Жалобы на личные сообщения</h4><button id="adminReportsRefresh" type="button">Обновить</button></div>
+            <p class="admin-bulk-note">Сообщения, на которые пожаловались получатели. «Удалить сообщение» стирает его у обоих, «Оставить» просто закрывает жалобу.</p>
+            <ul class="admin-report-list" id="adminReportList"></ul>
+            <div class="gla-user-reports" id="adminUserReports"></div>
+          </div>
+          <div class="admin-games" id="adminGames" data-admin-pane="games"></div>
+          <div class="gla-pane" id="adminGuard" data-admin-pane="guard"></div>
+          <div class="gla-pane" id="adminSuspects" data-admin-pane="suspects"></div>
+          <div class="gla-pane" id="adminLog" data-admin-pane="log"></div>
+          <div class="gla-pane" id="adminStats" data-admin-pane="stats"></div>
+          <div class="admin-catalog" id="adminCatalog" data-admin-pane="catalog">
+            <div class="admin-overview-head"><h4 id="adminCatalogTitle">Стихи и письма</h4><button id="adminCatalogRefresh" type="button">Обновить</button></div>
+            <p class="admin-bulk-note" id="adminCatalogNote">Публикуйте только свои тексты или стихи авторов, умерших больше 70 лет назад. Опубликованный текст появляется у всех сразу, без обновления приложения.</p>
+            <form class="admin-catalog-form" id="adminCatalogForm">
+              <label class="admin-notice-message admin-catalog-text" for="adminCatalogText"><span id="adminCatalogTextLabel">Текст</span><textarea id="adminCatalogText" maxlength="1500" rows="7" autocomplete="off" placeholder="Вставьте стих или письмо"></textarea></label>
+              <div class="admin-notice-meta"><small id="adminCatalogHint">Несколько текстов разделяйте строкой ***. Переносы строк сохраняются.</small><output id="adminCatalogCount" for="adminCatalogText">0 / 1500</output></div>
+              <div class="admin-catalog-grid">
+                <label class="admin-notice-reason" for="adminCatalogLanguage"><span id="adminCatalogLanguageLabel">Язык текста</span><select id="adminCatalogLanguage"></select></label>
+                <label class="admin-notice-reason" for="adminCatalogCategory"><span id="adminCatalogCategoryLabel">Категория</span><select id="adminCatalogCategory"><option value="poem">Стихи</option><option value="warm">Тепло</option><option value="gratitude">Спасибо</option><option value="support">Поддержка</option><option value="family">Семья</option></select></label>
+              </div>
+              <label class="admin-notice-reason admin-catalog-author" for="adminCatalogAuthor"><span id="adminCatalogAuthorLabel">Автор · необязательно</span><input id="adminCatalogAuthor" type="text" maxlength="80" autocomplete="off"></label>
+              <label class="admin-catalog-free" for="adminCatalogFree"><input id="adminCatalogFree" type="checkbox"><span id="adminCatalogFreeLabel">Бесплатно для всех</span></label>
+              <p class="admin-status" id="adminCatalogStatus" role="status" aria-live="polite"></p>
+              <div class="admin-access-actions admin-catalog-actions">
+                <button id="adminCatalogPublish" type="submit">Опубликовать</button>
+                <button id="adminCatalogDraft" type="button">В черновики</button>
+                <button id="adminCatalogPreview" type="button">Посмотреть</button>
+                <button class="admin-revoke" id="adminCatalogCancel" type="button" hidden>Отменить правку</button>
+              </div>
+            </form>
+            <ul class="admin-catalog-list" id="adminCatalogList"></ul>
+            <p class="admin-recent-empty" id="adminCatalogEmpty" hidden>Пока ничего не добавлено</p>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="qrLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="qrBackdrop" type="button" aria-label="Закрыть QR-код"></button>
+      <section class="qr-card" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+        <button class="panel-close qr-close" id="qrClose" type="button" aria-label="Закрыть QR-код">×</button>
+        <h2 id="qrTitle">Письмо, которое<br /><em>откроется по камере</em></h2>
+        <p class="qr-lead" id="qrLead">Укажите имена, скачайте QR-код и приложите его к цветам или подарку. Получатель увидит первые 10 писем бесплатно.</p>
+        <form id="qrForm">
+          <div class="simple-form">
+            <label><span>От кого</span><input id="qrSenderName" type="text" dir="auto" maxlength="36" autocomplete="name" placeholder="Ваше имя" /></label>
+            <label><span>Для кого</span><input id="qrRecipientName" type="text" dir="auto" maxlength="36" autocomplete="off" placeholder="Имя получателя" /></label>
+          </div>
+          <p class="setup-error" id="qrNamesError" hidden>Введите обычные имена или семейные роли.</p>
+          <button class="generate-button qr-generate" id="qrGenerateButton" type="submit"><span class="generate-spark"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-qr"/></svg></span><span>Обновить QR-код</span><i>→</i></button>
+        </form>
+        <div class="qr-preview" id="qrPreview">
+          <div class="qr-preview-head"><span>GLOWLETTER</span><small id="qrPreviewCaption">10 писем в подарок</small></div>
+          <canvas id="qrCanvas" width="280" height="280" aria-label="QR-код персонального письма"></canvas>
+          <p id="qrRoutePreview"></p>
+        </div>
+        <p class="qr-privacy" id="qrPrivacy">В QR-коде сохраняются только выбранные имена, язык и ссылка на бесплатную версию. Ключ полного доступа не передаётся.</p>
+        <div class="qr-actions">
+          <button id="qrDownloadButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-download"/></svg> Скачать PNG</button>
+          <button id="qrCopyLinkButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-copy"/></svg> Скопировать ссылку</button>
+          <button id="qrCopyImageButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-qr"/></svg> Скопировать QR</button>
+          <button id="qrPrintButton" type="button">⌁ Распечатать</button>
+          <button id="qrPdfButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-download"/></svg> PDF для печати</button>
+          <button id="qrSendButton" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-share"/></svg> Отправить</button>
+        </div>
+        <button class="paywall-home go-home" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-home"/></svg> На главную</button>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="composerLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="composerBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="setup-card composer-card" role="dialog" aria-modal="true" aria-labelledby="composerTitle">
+        <button class="panel-close composer-close" id="composerClose" type="button" aria-label="Закрыть">×</button>
+        <p class="composer-eyebrow" id="composerEyebrow">GLOWLETTER · СВОИМИ СЛОВАМИ</p>
+        <h2 id="composerTitle">Письмо своими словами</h2>
+        <p class="composer-lead" id="composerLead">Напишите то, что важно сказать. Текст сохранится в истории и попадёт в QR-карточку.</p>
+        <p class="composer-route" id="composerRoute"></p>
+        <label class="composer-field"><textarea id="composerText" rows="9" maxlength="1800" dir="auto" placeholder="Дорогая мама, сегодня я хочу сказать тебе…"></textarea><small id="composerCounter">0 / 1800</small></label>
+        <p class="setup-error" id="composerError" hidden></p>
+        <div class="composer-actions">
+          <button class="generate-button" id="composerDone" type="button"><span class="generate-spark"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></span><span id="composerDoneLabel">Готово</span></button>
+          <button class="composer-secondary" id="composerCollection" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-book"/></svg> <span>Выбрать из коллекции</span></button>
+        </div>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="shareAppLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="shareAppBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="setup-card share-app-card" role="dialog" aria-modal="true" aria-labelledby="shareAppTitle">
+        <button class="panel-close share-app-close" id="shareAppClose" type="button" aria-label="Закрыть">×</button>
+        <h2 id="shareAppTitle">Поделиться приложением</h2>
+        <p class="share-app-lead" id="shareAppLead">Выберите удобный способ отправки.</p>
+        <div class="share-app-options">
+          <a id="shareTelegram" href="#" target="_blank" rel="noopener"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-share"/></svg></i><span>Telegram</span></a>
+          <a id="shareWhatsapp" href="#" target="_blank" rel="noopener"><i aria-hidden="true">◉</i><span>WhatsApp</span></a>
+          <a id="shareEmail" href="#"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-mail"/></svg></i><span>Почта</span></a>
+          <button id="shareCopyLink" type="button"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-copy"/></svg></i><span>Скопировать ссылку</span></button>
+        </div>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="qrSendLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="qrSendBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="setup-card share-app-card" role="dialog" aria-modal="true" aria-labelledby="qrSendTitle">
+        <button class="panel-close share-app-close" id="qrSendClose" type="button" aria-label="Закрыть">×</button>
+        <h2 id="qrSendTitle">Отправить письмо</h2>
+        <p class="share-app-lead" id="qrSendLead">Ссылка откроет письмо на любом телефоне. Выберите, куда её отправить.</p>
+        <div class="share-app-options">
+          <a id="qrSendWhatsapp" href="#" target="_blank" rel="noopener"><i aria-hidden="true">◉</i><span>WhatsApp</span></a>
+          <a id="qrSendTelegram" href="#" target="_blank" rel="noopener"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-share"/></svg></i><span>Telegram</span></a>
+          <a id="qrSendSms" href="#"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-note"/></svg></i><span>SMS</span></a>
+          <a id="qrSendEmail" href="#"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-mail"/></svg></i><span>Почта</span></a>
+          <button id="qrSendOther" type="button" hidden><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-share"/></svg></i><span>Другое приложение</span></button>
+          <button id="qrSendFile" type="button" hidden><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-image"/></svg></i><span>Отправить карточку картинкой</span></button>
+          <button id="qrSendCopy" type="button"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-copy"/></svg></i><span>Скопировать ссылку</span></button>
+        </div>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="languageLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="languageBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="setup-card language-card" role="dialog" aria-modal="true" aria-labelledby="languageTitle">
+        <button class="panel-close" id="languageClose" type="button" aria-label="Закрыть">×</button>
+        <h2 id="languageTitle">Язык приложения и писем</h2>
+        <div class="language-list">
+          <button type="button" data-lang="ru" lang="ru" aria-pressed="false"><b>RU</b><span>Русский</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="en" lang="en" aria-pressed="false"><b>EN</b><span>English</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="fr" lang="fr" aria-pressed="false"><b>FR</b><span>Français</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="de" lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="es" lang="es" aria-pressed="false"><b>ES</b><span>Español</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="it" lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="pl" lang="pl" aria-pressed="false"><b>PL</b><span>Polski</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="uk" lang="uk" aria-pressed="false"><b>UK</b><span>Українська</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="pt" lang="pt" aria-pressed="false"><b>PT</b><span>Português</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="tr" lang="tr" aria-pressed="false"><b>TR</b><span>Türkçe</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="ja" lang="ja" aria-pressed="false"><b>JA</b><span>日本語</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="ko" lang="ko" aria-pressed="false"><b>KO</b><span>한국어</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="zh" lang="zh-Hant" aria-pressed="false"><b>ZH</b><span>繁體中文</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="ar" lang="ar" aria-pressed="false"><b>AR</b><span>العربية</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+          <button type="button" data-lang="ind" lang="id" aria-pressed="false"><b>IND</b><span>Bahasa Indonesia</span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-check"/></svg></button>
+        </div>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="publicationLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="publicationBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="setup-card compliance-card" role="dialog" aria-modal="true" aria-labelledby="publicationTitle" aria-describedby="publicationLead">
+        <button class="panel-close" id="publicationClose" type="button" aria-label="Закрыть">×</button>
+        <h2 id="publicationTitle">Проверьте письмо</h2>
+        <p class="setup-note" id="publicationLead">Ссылка или QR-код смогут открыть все, кому их передадут.</p>
+        <div class="publication-audio" id="publicationAudio" hidden>
+          <button class="publication-audio-pick" id="publicationAudioButton" type="button" aria-pressed="false"><i><svg class="ic" aria-hidden="true" focusable="false"><use id="publicationAudioIcon" href="#ic-plus"/></svg></i><span><strong id="publicationAudioTitle">Добавить своё аудио</strong><small id="publicationAudioNote">Получатель услышит его, открыв письмо · MP3, M4A, AAC, OGG или WAV · до 12 МБ</small></span></button>
+          <div class="publication-audio-actions">
+            <button id="publicationAudioRemove" type="button" hidden>× Убрать аудио</button>
+            <button id="publicationAudioSignIn" type="button" hidden>Войти</button>
+          </div>
+        </div>
+        <fieldset class="publication-schedule" id="publicationSchedule" hidden>
+          <legend id="scheduleTitle">Когда открыть письмо?</legend>
+          <div class="publication-schedule-options">
+            <label><input type="radio" name="publicationWhen" value="now" checked /> <span id="scheduleNowLabel">Сразу</span></label>
+            <label><input type="radio" name="publicationWhen" value="later" /> <span id="scheduleLaterLabel">В выбранный день</span></label>
+          </div>
+          <div class="publication-capsule" id="publicationCapsule" hidden>
+            <button type="button" data-capsule="1m" id="capsuleMonth">Через месяц</button>
+            <button type="button" data-capsule="6m" id="capsuleHalf">Через полгода</button>
+            <button type="button" data-capsule="1y" id="capsuleYear">Через год</button>
+            <button type="button" data-capsule="5y">Через 5 лет</button>
+            <button type="button" data-capsule="10y">Через 10 лет</button>
+            <button type="button" data-capsule="18y">Через 18 лет</button>
+          </div>
+          <input id="publicationUnlockAt" type="datetime-local" hidden />
+          <small id="capsuleHint" hidden>Капсула времени: письмо может ждать до 25 лет — например, до 18-летия. Дольше года — с полным доступом.</small>
+          <small id="scheduleNote" hidden>До этого времени получатель увидит только дату, когда письмо откроется.</small>
+        </fieldset>
+        <label class="publication-consent">
+          <input id="publicationConsent" type="checkbox" />
+          <span id="publicationConsentText">Я имею право делиться именами, текстом и аудио; содержание законно, уважительно и опубликовано с согласия. Получатель сможет пожаловаться.</span>
+        </label>
+        <p class="compliance-links"><span id="publicationAgreement">Продолжая, вы принимаете</span> <a href="terms.html" id="publicationTerms">Условия</a> <span id="publicationAnd">и</span> <a href="privacy.html" id="publicationPrivacy">Политику конфиденциальности</a>.</p>
+        <p class="setup-error" id="publicationError" role="alert" hidden>Подтвердите согласие перед публикацией.</p>
+        <div class="compliance-actions"><button id="publicationCancel" type="button">Отмена</button><button class="generate-button" id="publicationConfirm" type="button" disabled><span id="publicationConfirmLabel">Продолжить</span><i>→</i></button></div>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="reportLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="reportBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="setup-card compliance-card" role="dialog" aria-modal="true" aria-labelledby="reportTitle" aria-describedby="reportLead">
+        <button class="panel-close" id="reportClose" type="button" aria-label="Закрыть">×</button>
+        <h2 id="reportTitle">Пожаловаться</h2>
+        <p class="setup-note" id="reportLead">Сообщение проверит администратор. Не добавляйте пароли, банковские данные или коды.</p>
+        <form id="reportForm">
+          <label class="support-field" for="reportCategory"><span id="reportCategoryLabel">Причина</span><select id="reportCategory" required>
+            <option value="adult">Содержание 18+</option><option value="harassment">Оскорбление или давление</option><option value="hate">Ненависть</option><option value="threat">Угроза</option><option value="fraud">Обман</option><option value="privacy">Личные данные</option><option value="spam">Спам</option><option value="other">Другое</option>
+          </select></label>
+          <label class="support-field" for="reportDetails"><span id="reportDetailsLabel">Комментарий · необязательно</span><textarea id="reportDetails" dir="auto" maxlength="500" rows="4" placeholder="Кратко объясните проблему"></textarea></label>
+          <p class="support-status" id="reportStatus" role="status" aria-live="polite"></p>
+          <button class="generate-button" id="reportSubmit" type="submit"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-flag"/></svg></span><span id="reportSubmitLabel">Отправить жалобу</span><i>→</i></button>
+        </form>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="supportLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="supportBackdrop" type="button" aria-label="Закрыть поддержку"></button>
+      <section class="setup-card support-card" role="dialog" aria-modal="true" aria-labelledby="supportTitle" aria-describedby="supportLead">
+        <button class="panel-close support-close" id="supportClose" type="button" aria-label="Закрыть поддержку">×</button>
+        <div class="support-mark" aria-hidden="true"><span>?</span><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-spark"/></svg></i></div>
+        <h2 id="supportTitle">Расскажите,<br /><em>что случилось</em></h2>
+        <p class="support-lead" id="supportLead">Опишите проблему прямо здесь. Email и ID аккаунта будут приложены автоматически.</p>
+
+        <div class="support-guest" id="supportGuestState" hidden>
+          <span aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-user"/></svg></span>
+          <div><strong id="supportGuestTitle">Сначала войдите в аккаунт</strong><p id="supportGuestNote">Так мы безопасно приложим ваш email и ID и сможем найти аккаунт.</p></div>
+          <button id="supportSignInButton" type="button" disabled>Проверяю способы входа…</button>
+          <button class="support-copy-contact" id="supportCopyContact" type="button">Скопировать email поддержки</button>
+        </div>
+
+        <form id="supportForm">
+          <div class="support-identity" id="supportIdentity">
+            <div><span id="supportEmailLabel">EMAIL ДЛЯ ОТВЕТА</span><strong id="supportEmailValue">—</strong></div>
+            <div id="supportIdRow"><span id="supportIdLabel">ID АККАУНТА</span><code id="supportIdValue">—</code></div>
+          </div>
+          <label class="support-field" for="supportCategory"><span id="supportCategoryLabel">Тема обращения</span><select id="supportCategory" required><option value="technical">Техническая проблема</option><option value="account">Аккаунт и вход</option><option value="subscription">VIP и подписка</option><option value="content">Письма и тексты</option><option value="feedback">Идея или отзыв</option><option value="other">Другое</option></select></label>
+          <label class="support-field" for="supportMessage"><span id="supportMessageLabel">Что произошло?</span><textarea id="supportMessage" dir="auto" minlength="20" maxlength="2000" rows="6" placeholder="Опишите проблему, что вы нажали и что увидели…" aria-describedby="supportPrivacyNote supportMessageCount supportStatus" required></textarea></label>
+          <div class="support-message-meta"><small id="supportPrivacyNote">Не указывайте пароль, банковские данные и коды подтверждения.</small><output id="supportMessageCount" for="supportMessage">0 / 2000</output></div>
+          <p class="support-status" id="supportStatus" role="status" aria-live="polite"></p>
+          <button class="generate-button support-submit" id="supportSubmit" type="submit"><span class="generate-spark"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-share"/></svg></span><span id="supportSubmitLabel">Отправить в поддержку</span><i>→</i></button>
+        </form>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="notificationLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="notificationBackdrop" type="button" aria-label="Закрыть уведомления"></button>
+      <section class="vip-notification-card" role="dialog" aria-modal="true" aria-labelledby="notificationTitle" aria-describedby="notificationLead">
+        <button class="panel-close vip-notification-close" id="notificationClose" type="button" aria-label="Закрыть уведомления">×</button>
+        <header class="vip-notification-heading">
+          <div class="vip-notification-emblem" aria-hidden="true"><span>VIP</span><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-spark"/></svg></i></div>
+          <div><h2 id="notificationTitle">Ваши уведомления</h2></div>
+        </header>
+        <p class="vip-notification-lead" id="notificationLead">Здесь сохраняются подарки и изменения VIP-доступа.</p>
+
+        <section class="vip-notice-hero" id="vipNoticeHero" aria-labelledby="vipNoticeTitle" hidden>
+          <div class="vip-notice-sparkles" aria-hidden="true"><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-spark"/></svg></i><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-spark"/></svg></i><i><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-spark"/></svg></i></div>
+          <div class="vip-notice-topline"><span id="vipNoticeReason">Подарок</span><time id="vipNoticeDate"></time></div>
+          <h3 id="vipNoticeTitle">VIP уже активен</h3>
+          <p id="vipNoticeBody">Полный доступ открыт.</p>
+          <blockquote id="vipNoticeMessage" hidden></blockquote>
+          <button id="notificationAcknowledge" type="button">Отлично</button>
+        </section>
+
+        <section class="vip-notification-history" aria-labelledby="notificationHistoryTitle">
+          <div class="vip-notification-history-heading"><h3 id="notificationHistoryTitle">История</h3><span id="notificationHistoryState">Всё прочитано</span></div>
+          <ul id="notificationHistoryList"></ul>
+          <p class="vip-notification-empty" id="notificationEmpty">Здесь появятся сообщения о VIP-доступе.</p>
+        </section>
+        <p class="vip-notification-status" id="notificationStatus" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+
+    <div class="panel-layer center-layer" id="paywallLayer" aria-hidden="true">
+      <button class="panel-backdrop" id="paywallBackdrop" type="button" aria-label="Закрыть"></button>
+      <section class="paywall-card" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
+        <button class="panel-close paywall-close" id="paywallClose" type="button" aria-label="Закрыть">×</button>
+        <div class="paywall-crest" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.2 1.7-2 3.2-3.2 5.3-3.2 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h2 id="paywallTitle">Игры, развлечения<br /><em>и письма</em></h2>
+        <p id="paywallLead">Первые 10 писем остаются бесплатными. Остальные 40 открывает подписка на месяц или на год. Она продлевается автоматически, пока вы не отмените её в аккаунте магазина.</p>
+        <div class="paywall-features"></div>
+        <button class="purchase-button purchase-yearly" id="purchaseYearlyButton" type="button"><em>Выгоднее всего</em><span>Подписка на год</span><strong class="yearly-price-label">24,99 €/год</strong></button>
+        <button class="purchase-button purchase-lifetime" id="purchaseLifetimeButton" type="button"><em id="lifetimeBadge">Без подписки</em><span id="lifetimeLabel">Навсегда</span><strong class="lifetime-price-label">49,99 €</strong></button>
+        <button class="purchase-button" id="purchaseButton" type="button"><span>Подписка на месяц</span><strong class="price-label">7,99 €/месяц</strong></button>
+        <button class="restore-button" id="restoreButton" type="button">Восстановить подписку</button>
+        <button class="restore-button" id="paywallManageSubscription" type="button">Управление подпиской</button>
+        <button class="paywall-home go-home" type="button"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-home"/></svg> На главную</button>
+        <small>Оплата проходит через магазин. Цена может отображаться в местной валюте.</small>
+        <small id="paywallRefundNote">Возврат средств — по правилам Google Play: запрос возможен в течение 48 часов после покупки. После возврата платные функции и QR-ссылки, созданные по подписке, отключаются.</small>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <audio id="nasheed" loop preload="none"></audio>
+  </div>
+  <script src="config.js?v=157"></script>
+  <script src="vendor/supabase-2.110.9.js?v=157"></script>
+  <script src="letters.js?v=157"></script>
+  <script src="i18n-extra.js?v=157"></script>
+  <script src="vendor/qrcode-generator-1.4.4.min.js?v=157"></script>
+  <script src="qr-code.js?v=157"></script>
+  <script src="app.js?v=157"></script>
+  <script src="home-chats.js?v=157"></script>
+  <script src="email-auth.js?v=157" defer></script>
+  <script src="moments.js?v=157" defer></script>
+  <script src="experience.js?v=157" defer></script>
+  <script src="games-i18n.js?v=157" defer></script>
+  <script src="games.js?v=157" defer></script>
+  <script src="friends-i18n.js?v=157" defer></script>
+  <script src="friends.js?v=157" defer></script>
+  <script src="couple-i18n.js?v=157" defer></script>
+  <script src="couple.js?v=157" defer></script>
+  <script src="bear-reader.js?v=157" defer></script>
+  <script src="online.js?v=157" defer></script>
+  <script src="voice.js?v=157" defer></script>
+  <script src="ultra-i18n.js?v=157" defer></script>
+  <script src="call.js?v=157" defer></script>
+  <script src="table-i18n.js?v=157" defer></script>
+  <script src="table.js?v=157" defer></script>
+  <script src="table-content.js?v=157" defer></script>
+  <script src="table-content-i18n.js?v=157" defer></script>
+  <script src="table-board.js?v=157" defer></script>
+  <script src="table-party.js?v=157" defer></script>
+  <script src="table-group-content.js?v=157" defer></script>
+  <script src="table-group-content-i18n.js?v=157" defer></script>
+  <script src="table-group.js?v=157" defer></script>
+  <script src="word-lists.js?v=157" defer></script>
+  <script src="word-i18n.js?v=157" defer></script>
+  <script src="word.js?v=157" defer></script>
+  <script src="together.js?v=157" defer></script>
+  <script src="ranking-i18n.js?v=157" defer></script>
+  <script src="ranking.js?v=157" defer></script>
+  <script src="guard.js?v=157" defer></script>
+  <script src="admin.js?v=157" defer></script>
+  <script src="durak-engine.js?v=157" defer></script>
+  <script src="checkers-engine.js?v=157" defer></script>
+  <script src="durak-cards.js?v=157" defer></script>
+  <script src="durak-i18n.js?v=157" defer></script>
+  <script src="shop-lux-i18n.js?v=157" defer></script>
+  <script src="durak.js?v=157" defer></script>
+  <script src="gift-fx.js?v=157" defer></script>
+  <script src="big-reactions.js?v=157" defer></script>
+  <script src="shop.js?v=157" defer></script>
+  <script src="settings-menu.js?v=157" defer></script>
+</body>
+</html>

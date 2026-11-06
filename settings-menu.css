@@ -1,0 +1,151 @@
+/* Настройки как в WhatsApp (владелец 01.11): светлая тёплая бумага, тёмный чёткий текст,
+   карточка профиля и короткий список разделов. Перекрывает тёмную тему настроек из styles.css. */
+#settingsLayer .settings-panel.gls {
+  --ui-panel: #f7f0e6;
+  --ui-panel-alt: #f3eadd;
+  --ui-surface: #fffaf3;
+  --ui-ink: #2a1c18;
+  --ui-muted: #6e5c53;
+  --ui-accent: #a3283c;
+  --ui-accent-deep: #7e1a2e;
+  --ui-soft: #f4e7d4;
+  --ui-border: #e7d7c2;
+  --ui-gold: #b8862f;
+  --gls-line: #ecdfcd;
+  color: var(--ui-ink);
+  background: radial-gradient(120% 50% at 50% 0%, #fff8ee, transparent 70%), linear-gradient(180deg, #f8f1e7, #f2e8da);
+  border-left: 1px solid #e3d1b8;
+  padding-top: max(14px, env(safe-area-inset-top));
+}
+#settingsLayer .settings-panel.gls::after { opacity: .55; }
+
+/* Шапка: стрелка «назад» (на странице раздела), заголовок, «На главную» и «×». */
+#settingsLayer .gls .panel-header { align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--gls-line); }
+#settingsLayer .gls .panel-header > div:first-child { display: flex; align-items: center; gap: 6px; flex: 1 1 auto; min-width: 0; }
+#settingsLayer .gls #settingsTitle { display: none; }
+#settingsLayer .settings-panel.gls .panel-header h2.gls-title { margin: 0; color: var(--ui-ink); font-family: "Playfair Display", Georgia, serif; font-size: 26px; font-weight: 700; line-height: 1.15; letter-spacing: -.01em; text-shadow: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#settingsLayer .gls .gls-back { display: inline-grid; place-items: center; flex: 0 0 auto; width: 40px; height: 40px; margin-inline-start: -8px; padding: 0; border: 0; border-radius: 50%; color: var(--ui-accent); background: transparent; cursor: pointer; }
+#settingsLayer .gls .gls-back svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+#settingsLayer .gls .gls-back:active { background: var(--ui-soft); }
+[dir="rtl"] #settingsLayer .gls .gls-back svg { transform: scaleX(-1); }
+#settingsLayer .gls.gls-menu .gls-back { display: none; }
+#settingsLayer .gls .panel-home,
+#settingsLayer .gls .panel-close { color: var(--ui-accent-deep); background: #fffaf3; border: 1px solid var(--ui-border); box-shadow: 0 2px 6px rgba(90, 50, 20, .08); }
+
+/* Что видно: в списке — только список; на странице — только её раздел. */
+#settingsLayer .gls.gls-menu > .settings-section,
+#settingsLayer .gls.gls-menu > .save-settings,
+#settingsLayer .gls.gls-menu > .settings-primary-qr,
+#settingsLayer .gls:not(.gls-menu) > .gls-nav,
+#settingsLayer .gls:not(.gls-menu) > .settings-section:not(.gls-current),
+#settingsLayer .gls:not(.gls-has-save) > .save-settings,
+#settingsLayer .gls:not(.gls-has-qr) > .settings-primary-qr { display: none; }
+
+/* Список разделов */
+.gls-nav { display: grid; gap: 14px; animation: gls-in .32s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes gls-in { from { opacity: 0; transform: translateY(6px); } }
+.gls-group { overflow: hidden; border: 1px solid var(--ui-border); border-radius: 18px; background: #fffaf3; box-shadow: 0 1px 2px rgba(90, 50, 20, .06), 0 8px 22px rgba(90, 50, 20, .06); }
+.gls-row, .gls-profile { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 62px; padding: 10px 14px; border: 0; color: var(--ui-ink); background: transparent; font: inherit; text-align: start; cursor: pointer; }
+.gls-row + .gls-row { border-top: 1px solid var(--gls-line); }
+.gls-row:active, .gls-profile:active { background: #f6ecdf; }
+.gls-copy { display: grid; flex: 1 1 auto; gap: 2px; min-width: 0; }
+.gls-copy b { overflow: hidden; color: var(--ui-ink); font-size: 16.5px; font-weight: 700; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+.gls-copy small { overflow: hidden; color: var(--ui-muted); font-size: 13.5px; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+.gls-chev { flex: 0 0 auto; width: 9px; height: 9px; border-top: 2px solid #b9a28c; border-right: 2px solid #b9a28c; transform: rotate(45deg); }
+[dir="rtl"] .gls-chev { transform: rotate(-135deg); }
+
+.gls-tile { display: grid; place-items: center; flex: 0 0 auto; width: 38px; height: 38px; border-radius: 11px; color: #fff; background: #a3283c; }
+.gls-tile svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.gls-tile[data-tile="lang"] { background: #2f6fb0; }
+.gls-tile[data-tile="letter"] { background: #b0344a; }
+.gls-tile[data-tile="sound"] { background: #7b4bb0; }
+.gls-tile[data-tile="look"] { background: #2f8a6b; }
+.gls-tile[data-tile="notify"] { background: #d0573a; }
+.gls-tile[data-tile="wallet"] { background: #c8902a; }
+.gls-tile[data-tile="sub"] { background: linear-gradient(140deg, #d8aa4a, #a87420); }
+.gls-tile[data-tile="help"] { background: #5d6b78; }
+
+/* Карточка профиля — как в WhatsApp: крупное фото, имя, почта */
+.gls-profile { min-height: 84px; padding: 14px 16px; border: 1px solid var(--ui-border); border-radius: 18px; background: #fffaf3; box-shadow: 0 1px 2px rgba(90, 50, 20, .06), 0 8px 22px rgba(90, 50, 20, .06); }
+.gls-avatar { display: grid; place-items: center; flex: 0 0 auto; width: 58px; height: 58px; overflow: hidden; border: 2px solid #e4c98e; border-radius: 50%; color: #fff; background: linear-gradient(140deg, #b3283e, #7e1a2e); font-size: 24px; font-weight: 800; }
+.gls-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.gls-avatar svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+.gls-profile .gls-copy b { font-size: 19px; }
+.gls-plan { flex: 0 0 auto; padding: 4px 9px; border: 1px solid #e0c27c; border-radius: 999px; color: #7a5410; background: #fbefd2; font-size: 11.5px; font-style: normal; font-weight: 800; letter-spacing: .03em; }
+
+/* Страница раздела: без рамки и заголовка-«гармошки», содержимое на светлых карточках */
+#settingsLayer .gls > .settings-section.gls-current { margin: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; overflow: visible; animation: gls-in .3s cubic-bezier(.16, 1, .3, 1) both; }
+#settingsLayer .gls > .settings-section.gls-current > summary { display: none; }
+#settingsLayer .gls .settings-section-body { padding: 0; border-top: 0; animation: none; }
+#settingsLayer .gls .settings-section-body::before,
+#settingsLayer .gls .settings-section-body::after { display: none; }
+#settingsLayer .gls .settings-section-body > *:first-child { margin-top: 0; }
+
+#settingsLayer .gls .account-card,
+#settingsLayer .gls .subscription-card,
+#settingsLayer .gls .premium-settings-card,
+#settingsLayer .gls .contact-card,
+#settingsLayer .gls fieldset,
+#settingsLayer .gls .gl-visual-studio {
+  border: 1px solid var(--ui-border);
+  border-radius: 18px;
+  background: #fffaf3;
+  box-shadow: 0 1px 2px rgba(90, 50, 20, .06), 0 8px 22px rgba(90, 50, 20, .06);
+  color: var(--ui-ink);
+}
+#settingsLayer .gls fieldset { padding: 14px; margin: 0 0 14px; }
+#settingsLayer .gls legend { float: left; width: 100%; margin: 0 0 10px; padding: 0; color: var(--ui-accent-deep); font-size: 14px; font-weight: 800; }
+#settingsLayer .gls legend + * { clear: both; }
+
+#settingsLayer .gls strong, #settingsLayer .gls b, #settingsLayer .gls h3, #settingsLayer .gls h4,
+#settingsLayer .gls .email-auth-divider { color: var(--ui-ink); }
+#settingsLayer .gls label > span, #settingsLayer .gls .settings-section-body p, #settingsLayer .gls small,
+#settingsLayer .gls .account-support-note, #settingsLayer .gls .subscription-note, #settingsLayer .gls .install-hint,
+#settingsLayer .gls .audio-share-note, #settingsLayer .gls .account-privacy { color: var(--ui-muted); }
+#settingsLayer .gls input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+#settingsLayer .gls textarea, #settingsLayer .gls select { color: var(--ui-ink); background: #fff; border: 1px solid #dcc9b1; box-shadow: inset 0 1px 2px rgba(90, 50, 20, .06); }
+#settingsLayer .gls input:focus-visible, #settingsLayer .gls textarea:focus-visible, #settingsLayer .gls select:focus-visible { outline: 2px solid rgba(163, 40, 60, .45); outline-offset: 1px; border-color: var(--ui-accent); }
+#settingsLayer .gls input::placeholder, #settingsLayer .gls textarea::placeholder { color: #a8968a; }
+
+/* Выбор языка, фона, аудио — светлые плитки, выбранная отмечена бордовой рамкой */
+#settingsLayer .gls .language-picker button,
+#settingsLayer .gls .track-option,
+#settingsLayer .gls .scene-grid button,
+#settingsLayer .gls .gl-type-grid button,
+#settingsLayer .gls .profile-picker button { color: var(--ui-ink); background: #fff; border: 1px solid #e3d3bf; box-shadow: none; }
+#settingsLayer .gls .language-picker button span, #settingsLayer .gls .language-picker button small { color: var(--ui-muted); }
+#settingsLayer .gls .language-picker button.is-active,
+#settingsLayer .gls .track-option.is-active,
+#settingsLayer .gls .scene-grid button.is-active,
+#settingsLayer .gls .scene-grid button[aria-checked="true"],
+#settingsLayer .gls .gl-type-grid button.is-active,
+#settingsLayer .gls .profile-picker button.is-active { color: var(--ui-accent-deep); background: #fbeee6; border: 2px solid var(--ui-accent); box-shadow: 0 2px 10px rgba(163, 40, 60, .16); }
+#settingsLayer .gls .language-picker button.is-active span { color: var(--ui-accent-deep); }
+#settingsLayer .gls .scene-grid button span { color: var(--ui-ink); }
+
+/* Кнопки */
+#settingsLayer .gls .save-settings, #settingsLayer .gls .settings-primary-qr, #settingsLayer .gls .email-auth-primary, #settingsLayer .gls #settingsPurchase {
+  border: 0; color: #fff; background: linear-gradient(110deg, #a52a3a, #861b30);
+  box-shadow: 0 8px 20px rgba(130, 26, 46, .25);
+}
+#settingsLayer .gls .settings-primary-qr { color: var(--ui-accent-deep); background: #fffaf3; border: 1px solid var(--ui-border); box-shadow: none; }
+#settingsLayer .gls .install-button, #settingsLayer .gls .admin-open-button, #settingsLayer .gls .account-id-copy,
+#settingsLayer .gls .account-user-actions button:not(.account-delete) { color: var(--ui-ink); background: #fffaf3; border: 1px solid var(--ui-border); box-shadow: none; }
+#settingsLayer .gls .account-delete { color: #b3261e; background: transparent; border: 1px solid #ecc3bd; }
+#settingsLayer .gls .oauth-button { color: var(--ui-ink); background: #fff; border: 1px solid #dcc9b1; }
+#settingsLayer .gls .oauth-button span { color: var(--ui-ink); }
+#settingsLayer .gls .email-auth-tabs { background: #f3e8d9; border: 1px solid var(--ui-border); }
+#settingsLayer .gls .email-auth-tabs button { color: var(--ui-muted); }
+#settingsLayer .gls .email-auth-tabs button.is-active { color: #fff; background: var(--ui-accent); box-shadow: none; }
+#settingsLayer .gls .email-auth-secondary { color: var(--ui-accent-deep); background: transparent; }
+#settingsLayer .gls .legal-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+#settingsLayer .gls .legal-links a, #settingsLayer .gls .legal-links button { color: var(--ui-accent-deep); }
+#settingsLayer .gls .contact-card b { color: var(--ui-accent-deep); }
+#settingsLayer .gls .account-mark, #settingsLayer .gls .subscription-mark { color: var(--ui-accent); background: #fbeee6; }
+#settingsLayer .gls .account-support-id code { color: var(--ui-ink); background: #f3e8d9; }
+#settingsLayer .gls .help > * + *, #settingsLayer .gls [data-gls="help"] .settings-section-body > * + * { margin-top: 10px; }
+#settingsLayer .gls [data-gls="help"] .install-button { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gls-nav, #settingsLayer .gls > .settings-section.gls-current { animation: none; }
+}

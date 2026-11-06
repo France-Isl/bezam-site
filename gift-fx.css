@@ -1,0 +1,90 @@
+/* Роскошные подарки на весь экран: без затемнения и размытия — только тёплое свечение в центре. */
+.gfx { position: fixed; inset: 0; z-index: 220; overflow: hidden; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: opacity .35s ease; }
+.gfx.is-out { opacity: 0; }
+.gfx-glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 46%, rgba(255, 96, 128, .26), rgba(255, 96, 128, .08) 38%, rgba(255, 96, 128, 0) 64%); animation: gfx-glow-in .6s ease-out both; }
+.gfx.is-bear .gfx-glow { background: radial-gradient(circle at 50% 46%, rgba(255, 196, 120, .26), rgba(255, 150, 160, .08) 40%, rgba(255, 150, 160, 0) 66%); }
+.gfx.is-box .gfx-glow { background: radial-gradient(circle at 50% 46%, rgba(255, 214, 140, .3), rgba(255, 180, 120, .08) 40%, rgba(255, 180, 120, 0) 66%); }
+@keyframes gfx-glow-in { from { opacity: 0; } }
+
+.gfx-stage { position: absolute; left: 50%; top: 46%; width: min(86vw, 440px); aspect-ratio: 820 / 866; transform: translate(-50%, -50%); display: grid; place-items: center; pointer-events: none; }
+.gfx-roses { width: 100%; height: auto; filter: drop-shadow(0 24px 40px rgba(60, 0, 12, .45)); will-change: transform, opacity; }
+.gfx-bear { width: 78%; transform-origin: 50% 100%; will-change: transform; filter: drop-shadow(0 22px 34px rgba(40, 14, 0, .45)); }
+.gfx-bear svg, .gfx-box svg { display: block; width: 100%; height: auto; }
+.gfx-balloon { transform-box: fill-box; transform-origin: 50% 100%; animation: gfx-bob 2.4s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes gfx-bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-7px) rotate(3deg); } }
+
+.gfx-box { position: relative; width: 82%; aspect-ratio: 1; will-change: transform; filter: drop-shadow(0 22px 34px rgba(60, 0, 12, .45)); }
+.gfx-box > span { position: absolute; inset: 0; }
+.gfx-box-lid { transform-origin: 50% 45%; }
+.gfx-box .gfx-box-heart { inset: auto; left: 50%; top: 34%; width: 42%; filter: drop-shadow(0 0 18px rgba(255, 140, 170, .95)) drop-shadow(0 0 40px rgba(255, 90, 130, .6)); }
+.gfx-rays { position: absolute; left: 50%; top: 40%; width: 210%; aspect-ratio: 1; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(255, 228, 160, .42) 0deg 5deg, rgba(255, 228, 160, 0) 5deg 18deg); -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 68%); mask-image: radial-gradient(circle, #000 18%, transparent 68%); opacity: 0; }
+
+.gfx-p { position: absolute; left: 0; top: 0; display: block; pointer-events: none; will-change: transform, opacity; }
+.gfx-p svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.gfx-p.is-heart svg { filter: drop-shadow(0 0 6px rgba(255, 90, 130, .7)); }
+.gfx-p.is-glow svg { filter: drop-shadow(0 0 8px rgba(255, 170, 200, .95)); }
+.gfx-p.is-petal { height: auto !important; aspect-ratio: 1 / 1.25; border-radius: 80% 0 80% 0; background: radial-gradient(circle at 30% 30%, #ff5a6e, #d01535 60%, #8e0b25); box-shadow: inset -2px -3px 6px rgba(80, 0, 15, .35); }
+.gfx-p.is-petal.is-pink { background: radial-gradient(circle at 30% 30%, #ffd1de, #ff7aa2 60%, #c23c69); }
+.gfx-p.is-spark { border-radius: 50%; background: radial-gradient(circle, #fff 0 30%, #ffe39a 55%, rgba(242, 201, 111, 0) 72%); box-shadow: 0 0 10px 3px rgba(255, 214, 120, .75); }
+.gfx-p.is-star svg { filter: drop-shadow(0 0 6px rgba(255, 220, 140, .9)); }
+.gfx-p.is-confetti { height: auto !important; aspect-ratio: 1 / 1.7; border-radius: 2px; }
+.gfx-p.is-c0 { background: #ff4d6d; } .gfx-p.is-c1 { background: #f2c96f; } .gfx-p.is-c2 { background: #ff9ec0; } .gfx-p.is-c3 { background: #fff1d6; }
+
+.gfx-flash { position: absolute; left: 50%; top: 46%; width: 46vmin; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--c) 0, rgba(255, 255, 255, 0) 68%); pointer-events: none; }
+
+.gfx-caption { position: absolute; left: 50%; bottom: max(9vh, calc(env(safe-area-inset-bottom) + 40px)); display: grid; gap: 4px; justify-items: center; max-width: min(88vw, 420px); padding: 12px 26px 14px; border: 1.5px solid rgba(244, 202, 126, .8); border-radius: 22px; background: linear-gradient(160deg, rgba(110, 14, 36, .92), rgba(52, 8, 20, .92)); box-shadow: 0 16px 40px rgba(0, 0, 0, .45), 0 0 30px rgba(242, 201, 111, .25); color: #fff1dc; text-align: center; pointer-events: none; }
+.gfx-caption b { font-family: "Playfair Display", Georgia, serif; font-size: 24px; line-height: 1.15; color: #ffe39a; }
+.gfx-caption span { font-size: 15px; opacity: .9; }
+
+/* Картинка роскошного подарка в магазине и в чате */
+.gfx-thumb { display: block; width: 100%; height: 100%; object-fit: contain; }
+.gfx-thumb svg { display: block; width: 100%; height: 100%; }
+.gfx-thumb.is-box { position: relative; }
+.gfx-thumb.is-box > span { position: absolute; inset: 0; }
+.gfx-thumb .gfx-balloon { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gfx-balloon, .gfx-glow { animation: none !important; }
+}
+
+/* Реакции в звонке: эффект поверх, но кнопки под ним нажимаются */
+.gfx.is-passive { pointer-events: none; cursor: default; }
+.gfx.is-night .gfx-glow { background: radial-gradient(circle at 50% 36%, rgba(255, 190, 120, .16), rgba(255, 120, 160, 0) 62%); }
+.gfx-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.gfx-butterfly svg { overflow: visible; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .3)); }
+.gfx-wing { transform-box: fill-box; animation: gfx-flap var(--flap, .2s) ease-in-out infinite alternate; }
+.gfx-wing.is-l { transform-origin: 100% 50%; }
+.gfx-wing.is-r { transform-origin: 0% 50%; }
+@keyframes gfx-flap { to { transform: scaleX(.22); } }
+.gfx-thumb.is-icon { display: grid; place-items: center; }
+.gfx-thumb.is-icon svg { width: 86%; height: 86%; }
+@media (prefers-reduced-motion: reduce) { .gfx-wing { animation: none !important; } }
+
+/* Подарки и большие реакции с настоящими картинками (01.11) */
+.gfx-pic { position: relative; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 22px 36px rgba(40, 0, 12, .4)); will-change: transform, opacity; user-select: none; -webkit-user-drag: none; }
+.gfx-pic.is-drive, .gfx-pic.is-fly { width: 118%; max-width: none; }
+.gfx-pic.is-small { width: 62%; height: 62%; margin: 19% auto 0; display: block; }
+.gfx-rays.is-pic { top: 50%; }
+.gfx-p.is-ember { border-radius: 50%; background: radial-gradient(circle, #fff6d8 0 22%, #ffb347 48%, rgba(255, 90, 40, 0) 74%); box-shadow: 0 0 12px 4px rgba(255, 120, 40, .7); }
+.gfx-p.is-glint { border-radius: 50%; background: radial-gradient(circle, #fff 0 26%, var(--g, #c9a7ff) 52%, rgba(160, 110, 255, 0) 74%); box-shadow: 0 0 12px 3px var(--g, #c9a7ff); }
+.gfx-p.is-g0 { --g: #c9a7ff; } .gfx-p.is-g1 { --g: #8fd3ff; } .gfx-p.is-g2 { --g: #ffb3e6; }
+
+/* «Большие реакции»: плитки в листе реакций звонка и в чате (одинаково на светлом и тёмном фоне) */
+.gbx-note { margin: 2px 0 8px; font-size: 13px; line-height: 1.4; opacity: .82; text-align: center; }
+.gbx-note.is-small { margin: 8px 0 0; font-size: 12px; }
+.gbx-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 359px) { .gbx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gbx-tile { display: grid; justify-items: center; gap: 3px; min-width: 0; padding: 6px 4px; border: 1px solid rgba(244, 202, 126, .75); border-radius: 16px; background: radial-gradient(circle at 50% 38%, rgba(150, 40, 60, .9), rgba(40, 10, 18, .96) 76%); box-shadow: 0 4px 12px rgba(60, 10, 20, .25); color: #fff1dc; font: inherit; cursor: pointer; transition: transform .15s ease; -webkit-tap-highlight-color: transparent; }
+.gbx-tile:active { transform: scale(.95); }
+.gbx-tile:focus-visible { outline: 2px solid #f2c96f; outline-offset: 2px; }
+.gbx-pic { display: block; width: 100%; aspect-ratio: 1; pointer-events: none; }
+.gbx-pic .gfx-thumb { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .45)); }
+.gbx-price { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 800; color: #ffe39a; white-space: nowrap; }
+.gbx-price.is-free { color: #c6f7cf; }
+.gbx-coin { width: 14px; height: 14px; flex: 0 0 14px; }
+.glk-react-big { margin-bottom: 12px; }
+.glk-react-big .gbx-grid { max-height: 38vh; overflow-y: auto; overscroll-behavior: contain; padding: 2px; }
+.glk-react-big h4 { margin: 0 0 2px; color: #f2c96f; font-size: 12px; font-weight: 900; letter-spacing: .12em; text-align: center; text-transform: uppercase; }
+.glf-bigfx { max-height: 46vh; overflow-y: auto; padding: 2px; }
+.glf-sheet-tile.is-bigfx .glf-sheet-ic { display: grid; place-items: center; width: 54px; height: 54px; flex: 0 0 54px; }
+.glf-sheet-tile.is-bigfx .glf-sheet-ic .gfx-thumb { width: 100%; height: 100%; object-fit: contain; }

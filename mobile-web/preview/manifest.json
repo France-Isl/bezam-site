@@ -1,0 +1,333 @@
+{
+  "schema": 1,
+  "channel": "preview",
+  "applicationId": "com.franceisl.glowletternext.debug",
+  "bundleVersion": 31,
+  "releaseId": "web-preview-31",
+  "appVersion": "2.4.1",
+  "minNativeVersionCode": 15,
+  "requiredBridgeApi": 1,
+  "entrypoint": "index.html",
+  "archive": {
+    "url": "https://bezam.org/mobile-web/releases/31/bundle.zip",
+    "size": 21406885,
+    "sha256": "069c7df1e78a58ddde66f0d085222be000570a27a1a048b2e301a3159fc9cdfe"
+  },
+  "files": [
+    {
+      "path": "CNAME",
+      "size": 9,
+      "sha256": "26e2b6bc0da2b58d6cc217ea3bfa0355f9e6566c0d80d812266b3a3ef11055f9"
+    },
+    {
+      "path": "app.js",
+      "size": 348954,
+      "sha256": "1bda96d578ff58ad510b33f409ee71f5ca88432a8578c889ec089e19ce88d369"
+    },
+    {
+      "path": "assets/auth/README.md",
+      "size": 392,
+      "sha256": "cab75e602146df92caa696f604b99834810bb89f18b04fb9e26d2ccdd063bcec"
+    },
+    {
+      "path": "assets/auth/apple-continue-en.png",
+      "size": 4480,
+      "sha256": "8f22e24226b33dd467a5983a8daeaaecf7dc3bf04ea4173cb4cf5f9c3a65d0ff"
+    },
+    {
+      "path": "assets/auth/apple-continue-fr.png",
+      "size": 4555,
+      "sha256": "048195e9fce9e8e921ceae3a44e05eff972ca5db909f488f3f881874e9d4b8d8"
+    },
+    {
+      "path": "assets/auth/apple-continue-ru.png",
+      "size": 4308,
+      "sha256": "96b37f56bee8bb6a6bad29587ff4edffe043adc74240f9cf75051c3641106f35"
+    },
+    {
+      "path": "assets/campfire-lake.png",
+      "size": 2473022,
+      "sha256": "c7f5f8e48166acc7e574b8237f18fe8a3aaa6c2c947c416cf94f5f124a48eda6"
+    },
+    {
+      "path": "assets/campfire-mobile.png",
+      "size": 2275671,
+      "sha256": "525282eb6a0d062903137ccc698c30a4921fe021d0e243b35717c92afca0b8ca"
+    },
+    {
+      "path": "assets/og-next.png",
+      "size": 2405528,
+      "sha256": "6192ac401d4bbed07b7d0605dd511ca86f36d8b86862ca93ad043059a1a655d3"
+    },
+    {
+      "path": "assets/share-card.png",
+      "size": 2495592,
+      "sha256": "f340a15c16232e3bdf808a625e7a84713b5c212bb8b1f81ffe94fbe078e09945"
+    },
+    {
+      "path": "assets/video/kotyta.jpg",
+      "size": 30056,
+      "sha256": "c722a656ae7e97f8047c9cf443efe51350c373b286e13eb2808d1bf2c65ffff8"
+    },
+    {
+      "path": "assets/video/kotyta.mp4",
+      "size": 3867615,
+      "sha256": "6be2605960004d20a042339b8458fb25dcd48b39d72cc0bcaebb3ffc86584a1d"
+    },
+    {
+      "path": "assets/video/lis.jpg",
+      "size": 27781,
+      "sha256": "4b7de03ae9770b64ad2d6f43977498938ea4d50aa2a4d5deb0f9c84534cd4c4b"
+    },
+    {
+      "path": "assets/video/lis.mp4",
+      "size": 4010568,
+      "sha256": "8267a4e317553ec8c8241f51afda82350481cdcc405853eda2f635722eb53ff7"
+    },
+    {
+      "path": "assets/video/mishka.jpg",
+      "size": 20962,
+      "sha256": "24ade522c0c4a9c0eceeb1110b5b950981f289e726feaa0a8e3022c2667e295b"
+    },
+    {
+      "path": "assets/video/mishka.mp4",
+      "size": 3333983,
+      "sha256": "8549cb4cf691a0e812129351b3c997d466981c150ae5b20eaf94ac3e930a23fa"
+    },
+    {
+      "path": "config.js",
+      "size": 543,
+      "sha256": "31a8c8916eb97878556cc15ee9a68170ce6ece941876dfb7f3b4413a30cdaeb6"
+    },
+    {
+      "path": "delete-account.html",
+      "size": 13192,
+      "sha256": "7b693ffa3af54c7571cb6e65ee5dfc1632ef02005ddad30ebc51ec5c5b8d4bc7"
+    },
+    {
+      "path": "email-auth.css",
+      "size": 3819,
+      "sha256": "815e14e2a3532398cb923948124838206828972f39130c8dc603e4d500c88110"
+    },
+    {
+      "path": "email-auth.js",
+      "size": 18568,
+      "sha256": "389f14264e523874dbf9f1263216ec6900ac1cb6c864c9ecff632bc636dac815"
+    },
+    {
+      "path": "experience.css",
+      "size": 17186,
+      "sha256": "75f7ecc8ee284c6ae7a25dda4aba96fb401c7f7a4646886997727462fbb28691"
+    },
+    {
+      "path": "experience.js",
+      "size": 20643,
+      "sha256": "deb709758e661825f650496b2baa1f4121c5966ddbf1adfa8aa5e221ecd3e9df"
+    },
+    {
+      "path": "fonts/cormorant-italic-cyrillic-ext.woff2",
+      "size": 14940,
+      "sha256": "a4be182ad5c9fdfa821ac1be04111a8651ba55956529e22300146315fa5d2699"
+    },
+    {
+      "path": "fonts/cormorant-italic-cyrillic.woff2",
+      "size": 12868,
+      "sha256": "cb92ea139b34821f3145ff5735ef3ffcfb3070125fa75c73fbd993c7e9a861cb"
+    },
+    {
+      "path": "fonts/cormorant-italic-latin-ext.woff2",
+      "size": 20392,
+      "sha256": "b367d9fced0c6964c5e7deeeb323e0d12ddc7ddc1b406e3c190724c0c71eacb4"
+    },
+    {
+      "path": "fonts/cormorant-italic-latin.woff2",
+      "size": 23784,
+      "sha256": "0b6719b25266b8f7f0b48e84eb8094db8d243c5b089a5fa48d350bc93f57127b"
+    },
+    {
+      "path": "fonts/cormorant-normal-cyrillic-ext.woff2",
+      "size": 23416,
+      "sha256": "a4d7cf345b8091e1d2c8c5c8fa3bd0f9bb9d00bc8988185471db398ddb5ae4c4"
+    },
+    {
+      "path": "fonts/cormorant-normal-cyrillic.woff2",
+      "size": 21168,
+      "sha256": "017fab69b4be8ffc08ca312823327989ade6dc3d948f0afa125e12ec2e5e7ca1"
+    },
+    {
+      "path": "fonts/cormorant-normal-latin-ext.woff2",
+      "size": 33736,
+      "sha256": "cfa9a397d86f66c5c51775a2500a712d5f632a04f0c5eca6930dfaf612d4566d"
+    },
+    {
+      "path": "fonts/cormorant-normal-latin.woff2",
+      "size": 37640,
+      "sha256": "d80df8ff5aecd299a61549f9e29ab1ed0b9b05f4ea71d50fe978e07d5240b235"
+    },
+    {
+      "path": "fonts/licenses/CormorantGaramond-OFL.txt",
+      "size": 4387,
+      "sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956"
+    },
+    {
+      "path": "fonts/licenses/Literata-OFL.txt",
+      "size": 4389,
+      "sha256": "8742963604cd89dc81437811a850018fc03b2bfad686d7422c8235967c87614e"
+    },
+    {
+      "path": "fonts/licenses/Manrope-OFL.txt",
+      "size": 4384,
+      "sha256": "e01b637272e0cbdfb240184dd98ea5cc671556d9894dae2668d92ab2c906787c"
+    },
+    {
+      "path": "fonts/literata-italic-cyrillic-ext.woff2",
+      "size": 4048,
+      "sha256": "2c4c9d61e37a20711706661ebe41869ee6f088486c594d8586afb368bd5a6257"
+    },
+    {
+      "path": "fonts/literata-italic-cyrillic.woff2",
+      "size": 12316,
+      "sha256": "4744bcf66c0d909316d95fcc57344ed7d2f6d4211e0b2f666713cec886fff2c0"
+    },
+    {
+      "path": "fonts/literata-italic-latin-ext.woff2",
+      "size": 18260,
+      "sha256": "a3082ac82225f7fb84bc234cf2f1e951a51e9e0e770e2e3d89280fd84f5aa5dd"
+    },
+    {
+      "path": "fonts/literata-italic-latin.woff2",
+      "size": 22824,
+      "sha256": "40f5571322fdd95c9c4105706f4e716b5ad1a4cafbe2fafbed3cc0d88405f1f2"
+    },
+    {
+      "path": "fonts/literata-normal-cyrillic-ext.woff2",
+      "size": 7396,
+      "sha256": "c2abb025bf949ecbd34d59ce32c4e04e4e6ea93ec6f45ed0b6f9c7f4dcf5a200"
+    },
+    {
+      "path": "fonts/literata-normal-cyrillic.woff2",
+      "size": 21008,
+      "sha256": "fc542002093cdaa2ed38f3768cbc8a04f639049a91cb73b6d831243517c07369"
+    },
+    {
+      "path": "fonts/literata-normal-latin-ext.woff2",
+      "size": 32260,
+      "sha256": "7be72f53edd9aba2cffe8326fbb60dd7ae00b578ff5e103b399c14dfec3257d9"
+    },
+    {
+      "path": "fonts/literata-normal-latin.woff2",
+      "size": 38996,
+      "sha256": "fde3d14f78c3431ee5e2f676a46dd18a1dd48ee4d0a71cc76c751f9e6f76f58e"
+    },
+    {
+      "path": "fonts/local-fonts.css",
+      "size": 6412,
+      "sha256": "994ec45128d07843a55d4f1fb709c75a38a657da389eb8b42a0998a05f39d329"
+    },
+    {
+      "path": "fonts/manrope-normal-cyrillic-ext.woff2",
+      "size": 2552,
+      "sha256": "de37de877dc17e4577341fa68bb5cb526b53d54cb29721e674208546a3c7849d"
+    },
+    {
+      "path": "fonts/manrope-normal-cyrillic.woff2",
+      "size": 14500,
+      "sha256": "c268b459a9329e59fecf39a17618efd44c71735532048d60b12aab76a8c14914"
+    },
+    {
+      "path": "fonts/manrope-normal-latin-ext.woff2",
+      "size": 15120,
+      "sha256": "3911b66d9f2e005a4b989223405d0e5032619c668597ba467cc76a23c8fffcfb"
+    },
+    {
+      "path": "fonts/manrope-normal-latin.woff2",
+      "size": 24836,
+      "sha256": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972"
+    },
+    {
+      "path": "icon.svg",
+      "size": 652,
+      "sha256": "43725d05cad2ffb8f0beb98d0eb8d7c48e50d3228fd07bf880afa114e8894bea"
+    },
+    {
+      "path": "index.html",
+      "size": 53168,
+      "sha256": "9bcdfd92d772e8e8415437a87c9cf29db218bc8b5ecfc7ff4e6c70ee8de2e3d9"
+    },
+    {
+      "path": "letters.js",
+      "size": 29562,
+      "sha256": "34c65a79e786e9af35c55f078b4a44989583c354ef2c8649d517bbe5ccc1166c"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "size": 881,
+      "sha256": "bb6d5b5617134645568a7318d7e8dc9925f90be21ef98cda0a67d8a77361b6b2"
+    },
+    {
+      "path": "moments.css",
+      "size": 18413,
+      "sha256": "099c2a633b4ef54499420ede6628d288bae70fc419db0c899d1b07f6f35d8a10"
+    },
+    {
+      "path": "moments.js",
+      "size": 80545,
+      "sha256": "e880a42decef6d271418251bc4dc5b497141ce5b7720639518741699d93ca2d1"
+    },
+    {
+      "path": "privacy.html",
+      "size": 42772,
+      "sha256": "b8e9696cadbf53afc52aaa3322a1824035a46f5ecf402256a525ea16cb27fab6"
+    },
+    {
+      "path": "qr-code.js",
+      "size": 11523,
+      "sha256": "0e2c37dcee0203e7509510047523edf837c055f4e1d207d92646b0afef28a3dc"
+    },
+    {
+      "path": "styles.css",
+      "size": 87004,
+      "sha256": "6910c74ee7faf0c060fd42989661f1f4a442384d1025cbcf79c46f91e4d048a5"
+    },
+    {
+      "path": "sw.js",
+      "size": 4323,
+      "sha256": "cd5b60c53db003efe8a170b7ac999480cee8bb08888be60a2400ca757df35a48"
+    },
+    {
+      "path": "terms.html",
+      "size": 26317,
+      "sha256": "b5d101422cc8436b0f36cb0ea50c6fd0e4c1306cd8159097fe47f1dd69a5d1bb"
+    },
+    {
+      "path": "vendor/qrcode-generator-1.4.4.min.js",
+      "size": 20517,
+      "sha256": "e3c7beaf9c18ef6f594a0bbc6e0820b78dcd9d02df7d11986882d7dce91ebeac"
+    },
+    {
+      "path": "vendor/qrcode-generator.LICENSE",
+      "size": 1092,
+      "sha256": "ba71bb22186b5dbdbcf6bb95ca1a4cc0736821efa1f059188891aa2d0fbd3f69"
+    },
+    {
+      "path": "vendor/qrcode-generator.NOTICE.md",
+      "size": 585,
+      "sha256": "24535313593840b6f3aa6ac013d4792361a4e38696d4b28290702a2c9b6fda44"
+    },
+    {
+      "path": "vendor/supabase-2.110.9.js",
+      "size": 208109,
+      "sha256": "cb10f129411ea0168f4b8abe1241e8de4278e62a256d5355b7490e3d79756293"
+    },
+    {
+      "path": "vendor/supabase-js.LICENSE",
+      "size": 1088,
+      "sha256": "52bb504945ae1d89bfb2e1f77f0a5ad89a3b2d43db7a29c4cf7da20e8018789d"
+    },
+    {
+      "path": "vendor/supabase-js.version.json",
+      "size": 435,
+      "sha256": "ccb88540cacae0aae50c7edd695980cfafaccd9d3d413e41d6f6adada5cad02a"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+/* Темы (владелец 02.11): картинка и тон всего приложения, кроме звонка (у звонка своя картинка — не трогаем).
+   home-boot.js ставит на <html> data-theme, data-look (light | dark) и --gl-scene до первой отрисовки.
+   Тёмные темы — прежнее тёмное стекло с золотом; светлые — белое стекло, тёмный текст и бирюзовый акцент. */
+
+:root { --gl-scene-pos: 50% 50%; }
+:root[data-theme="cabin"] { --gl-scene-pos: 30% 50%; }
+:root[data-theme="alps"] { --gl-scene-pos: 50% 40%; }
+
+/* Фон главного экрана и экрана загрузки — картинка темы */
+html.glh-pending body { background: #1d2a2e var(--gl-scene) var(--gl-scene-pos) / cover no-repeat; }
+:root[data-look="light"].glh-pending body { background-color: #dfeef0; }
+.glh-bg { background: var(--gl-scene) var(--gl-scene-pos) / cover no-repeat; }
+.gs-root { background-image: var(--gl-scene); background-position: var(--gl-scene-pos); }
+
+/* ——— Светлая тема: главный экран ——— */
+:root[data-look="light"] .glh {
+  --glh-gold: #0c6b63;
+  --glh-gold-dim: rgba(12, 107, 99, .26);
+  --glh-ink: #13262a;
+  --glh-muted: #48605f;
+  --glh-glass: rgba(255, 255, 255, .86);
+  --glh-glass-hi: rgba(255, 255, 255, .95);
+  --glh-wine: #0c6b63;
+  background: #dfeef0;
+}
+:root[data-look="light"] .glh-bg::before { height: 170px; background: linear-gradient(180deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, 0)); }
+:root[data-look="light"] .glh-bg::after { height: 130px; background: linear-gradient(0deg, rgba(240, 248, 248, .7), rgba(240, 248, 248, 0)); }
+:root[data-look="light"] .glh-head h1 { text-shadow: 0 1px 14px rgba(255, 255, 255, .9); }
+:root[data-look="light"] .glh-round { border-color: rgba(19, 38, 42, .12); box-shadow: 0 6px 16px rgba(19, 50, 55, .14); }
+:root[data-look="light"] .glh-round.is-on { color: #fff; background: #0c6b63; }
+:root[data-look="light"] .glh-search { border-color: rgba(19, 38, 42, .12); box-shadow: 0 6px 18px rgba(19, 50, 55, .1); }
+
+:root[data-look="light"] .glh-chat,
+:root[data-look="light"] .glh-tile,
+:root[data-look="light"] .glh-menu,
+:root[data-look="light"] .glh-empty { border-color: rgba(19, 38, 42, .08); box-shadow: 0 8px 22px rgba(19, 50, 55, .12); }
+:root[data-look="light"] .glh-chat.has-unread { border-color: rgba(12, 107, 99, .4); }
+:root[data-look="light"] .glh-menu li + li { border-top-color: rgba(19, 38, 42, .08); }
+:root[data-look="light"] .glh-av.is-online::after { border-color: #fff; }
+:root[data-look="light"] .glh-av img { background: #e8f1f1; }
+:root[data-look="light"] .glh-on { color: #0f8a4f; }
+:root[data-look="light"] .glh-dir.is-in .glh-pv-ic { color: #0f8a4f; }
+:root[data-look="light"] .glh-tile-ic,
+:root[data-look="light"] .glh-chat-call { border-color: rgba(12, 107, 99, .18); color: #0c6b63; background: #e3f2f0; }
+:root[data-look="light"] .glh-empty p,
+:root[data-look="light"] .glh-note { text-shadow: none; }
+:root[data-look="light"] .glh-note { padding: 14px 16px; border-radius: 16px; background: rgba(255, 255, 255, .86); }
+
+:root[data-look="light"] .glh-primary,
+:root[data-look="light"] .glh-fab { border: 0; color: #fff; background: linear-gradient(140deg, #14897e, #0c6b63); box-shadow: 0 10px 24px rgba(12, 107, 99, .32); }
+:root[data-look="light"] .glh-requests { border: 0; color: #fff; background: linear-gradient(110deg, #14897e, #0c6b63); }
+:root[data-look="light"] .glh-requests .glh-chev { border-color: #fff; }
+:root[data-look="light"] .glh-badge { border: 0; color: #fff; background: #d63a4a; }
+:root[data-look="light"] .glh-fab-menu button { border-color: rgba(19, 38, 42, .1); color: var(--glh-ink); background: #fff; box-shadow: 0 10px 24px rgba(19, 50, 55, .18); }
+:root[data-look="light"] .glh-fab-menu svg { color: #0c6b63; }
+:root[data-look="light"] .glh-classic { border-color: rgba(12, 107, 99, .3); background: rgba(255, 255, 255, .8); }
+
+:root[data-look="light"] .glh-tabs { border-color: rgba(19, 38, 42, .08); background: rgba(255, 255, 255, .94); box-shadow: 0 12px 30px rgba(19, 50, 55, .2); }
+:root[data-look="light"] .glh-tabs button { color: #5a6e70; }
+:root[data-look="light"] .glh-tabs button.is-active { color: #0c6b63; }
+:root[data-look="light"] .glh-tabs button.is-active i { color: #fff; background: #0c6b63; box-shadow: none; }
+
+/* ——— «Оформление» → «Тема»: крупные карточки-картинки, выбранная отмечена ——— */
+#settingsLayer .theme-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+#settingsLayer .gls .theme-grid button { position: relative; display: grid; grid-template-rows: auto; gap: 0; height: auto; min-height: 0; aspect-ratio: auto; padding: 0; overflow: hidden; border-radius: 16px; text-align: start; cursor: pointer; }
+#settingsLayer .theme-grid img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 14; object-fit: cover; }
+#settingsLayer .gls .theme-grid button span { position: static; inset: auto; display: block; background: none; text-shadow: none; padding: 7px 8px 0; color: var(--ui-ink); font-size: 12.5px; font-weight: 800; line-height: 1.2; }
+#settingsLayer .theme-grid button em { display: block; padding: 2px 8px 8px; color: var(--ui-muted); font-size: 11px; font-style: normal; font-weight: 600; }
+#settingsLayer .theme-grid button.is-active::after { content: ""; position: absolute; top: 7px; right: 7px; width: 22px; height: 22px; border-radius: 50%; background: #a3283c url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 12.5 4 4 8-9' fill='none' stroke='%23fff' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 15px no-repeat; box-shadow: 0 2px 8px rgba(0, 0, 0, .3); }
+[dir="rtl"] #settingsLayer .theme-grid button.is-active::after { right: auto; left: 7px; }
+@media (max-width: 340px) { #settingsLayer .theme-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ——— «Письма» (02.11): сверху только «← На главную»; язык, ♡ и «…» убраны, переходы в игры/магазин — во вкладках ——— */
+body.glh-letters:not(.is-reading) .topbar #languageButton,
+body.glh-letters:not(.is-reading) .topbar #libraryButton,
+body.glh-letters:not(.is-reading) .topbar #settingsButton,
+body.glh-letters:not(.is-reading) .topbar .ranking-button,
+body.glh-letters #homeScreen .home-smart-actions,
+body.glh-letters #homeScreen .home-quick,
+body.glh-letters #homeScreen .home-contact { display: none !important; }
+.glh-letter-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(100%, 420px); margin: 14px auto 0; }
+.glh-letter-actions[hidden] { display: none; }
+.glh-letter-actions button { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 12px; border: 1px solid rgba(242, 201, 111, .5); border-radius: 18px; color: #fff4e5; background: rgba(24, 12, 10, .62); font: 800 15px Manrope, system-ui, sans-serif; cursor: pointer; }
+.glh-letter-actions svg { flex: none; width: 20px; height: 20px; fill: none; stroke: #f2c96f; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+:root[data-look="light"] .glh-letter-actions button { border-color: rgba(19, 38, 42, .08); color: #13262a; background: rgba(255, 255, 255, .9); box-shadow: 0 8px 20px rgba(19, 50, 55, .14); }
+:root[data-look="light"] .glh-letter-actions svg { stroke: #0c6b63; }
+:root[data-look="light"] .glh-back-pill { border-color: rgba(19, 38, 42, .1); color: #13262a; background: rgba(255, 255, 255, .92); box-shadow: 0 6px 16px rgba(19, 50, 55, .16); }
+
+/* Экран «Письма»: картинка темы на весь экран (без полосы снизу), герой — на читаемой подложке */
+body.glh-letters:not(.is-reading) .cinematic-bg { background-image: var(--gl-scene) !important; background-size: cover !important; background-position: var(--gl-scene-pos) !important; }
+body.glh-letters:not(.is-reading) #homeScreen .home-hero { min-height: 0; justify-content: flex-start; gap: 18px; padding-bottom: 20px; background: rgba(16, 10, 14, .58); }
+body.glh-letters:not(.is-reading) #homeScreen .home-hero .seal-button { margin-bottom: 0; }
+body.glh-letters:not(.is-reading) #homeScreen .glh-letter-actions { margin-top: 4px; }
+body.glh-letters:not(.is-reading) #homeScreen .home-bottom .free-note { display: inline-flex; padding: 8px 14px; border-radius: 14px; background: rgba(16, 10, 14, .55); }
+:root[data-look="light"] body.glh-letters:not(.is-reading) #homeScreen .home-bottom .free-note { background: rgba(255, 255, 255, .86); text-shadow: none; }
+body.glh-letters:not(.is-reading) #homeScreen :is(.free-note, .home-contact) { color: rgba(255, 247, 237, .86); text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+:root[data-look="light"] body.glh-letters:not(.is-reading) #homeScreen .home-hero { border-color: rgba(255, 255, 255, .7); background: rgba(255, 255, 255, .86); box-shadow: 0 16px 40px rgba(19, 50, 55, .18); }
+:root[data-look="light"] body.glh-letters:not(.is-reading) #homeScreen .brand-card h1 { color: #13262a; text-shadow: none; }
+:root[data-look="light"] body.glh-letters:not(.is-reading) #homeScreen .brand-card h1 em { color: #0c6b63; }
+:root[data-look="light"] body.glh-letters:not(.is-reading) #homeScreen .brand-copy { color: #48605f; text-shadow: none; }
+:root[data-look="light"] body.glh-letters:not(.is-reading) #homeScreen :is(.free-note, .home-contact) { color: #13262a; text-shadow: 0 1px 8px rgba(255, 255, 255, .9); }
+:root[data-look="light"] body.glh-letters:not(.is-reading) .vignette,
+:root[data-look="light"] body.glh-letters:not(.is-reading) .color-wash { opacity: 0; }
+body.glh-letters:not(.is-reading) .cinematic-bg::before,
+body.glh-letters:not(.is-reading) .cinematic-bg::after { display: none; }
+
+/* ——— Картинка темы на всех экранах (владелец 02.11: «везде, кроме звонка»): чат, друзья, игры, «Дурак»,
+   магазин, настройки, окно покупки, экраны защиты. Звонок (.glk, call-ref.webp) не трогаем. ——— */
+.glf-chat-mode .glg-panel,
+.glf-layer:not(.glf-chat-mode) .glg-panel,
+#gamesLayer .glg-panel,
+.dk-root,
+.gs-root,
+.glx-layer { background-image: var(--gl-scene); background-position: var(--gl-scene-pos); background-size: cover; background-repeat: no-repeat; }
+/* Настройки: та же светлая «бумага» с карточками, но сквозь неё видна картинка темы */
+#settingsLayer .settings-panel.gls {
+  background: linear-gradient(180deg, rgba(250, 244, 236, .5), rgba(246, 238, 228, .72) 45%, rgba(242, 232, 218, .86)), var(--gl-scene) var(--gl-scene-pos) / cover no-repeat, #f2e8da;
+}
+:root[data-look="dark"] #settingsLayer .settings-panel.gls {
+  background: linear-gradient(180deg, rgba(250, 244, 236, .66), rgba(246, 238, 228, .8) 45%, rgba(242, 232, 218, .9)), var(--gl-scene) var(--gl-scene-pos) / cover no-repeat, #f2e8da;
+}
+#paywallLayer .paywall-card {
+  background:
+    linear-gradient(180deg, rgba(28, 11, 17, 0) 0, rgba(28, 11, 17, .1) 150px, rgba(28, 11, 17, .82) 255px, #1c0b11 330px) local,
+    var(--gl-scene) 50% 40% / 100% auto no-repeat local,
+    #1c0b11;
+}
+body:not(.is-reading) #homeScreen .world-link {
+  background: linear-gradient(90deg, rgba(24, 62, 42, .96) 0%, rgba(24, 62, 42, .9) 40%, rgba(24, 62, 42, .2) 68%, rgba(24, 62, 42, 0) 82%), var(--gl-scene) right -6px top 48% / 92% auto no-repeat, #1a3a2a;
+}
+
+/* Светлая тема в чате: свои сообщения и карточки — бирюзовые вместо бордовых */
+:root[data-look="light"] .glf-chat-mode {
+  --cc-wine: #14897e;
+  --cc-wine-2: #0c6b63;
+  --cc-wine-3: #08504a;
+}
+:root[data-look="light"] .glf-chat-mode .glf-bubble.is-mine { border-color: rgba(255, 255, 255, .6); background: linear-gradient(160deg, var(--cc-wine), var(--cc-wine-2) 60%, var(--cc-wine-3)); box-shadow: 0 8px 20px rgba(8, 80, 74, .28), inset 0 1px 0 rgba(255, 255, 255, .25); }
+:root[data-look="light"] .glf-chat-mode .glf-card.is-mine,
+:root[data-look="light"] .glf-chat-mode .glf-card:not(.is-mine) { border-color: rgba(255, 255, 255, .6); background: radial-gradient(90% 120% at 85% 50%, rgba(80, 200, 185, .3), rgba(80, 200, 185, 0) 60%), linear-gradient(160deg, #14897e, #0c6b63 55%, #08504a); box-shadow: 0 10px 24px rgba(8, 80, 74, .28), inset 0 1px 0 rgba(255, 255, 255, .25); }
+:root[data-look="light"] .glg-layer.glf-chat-mode .glf-send { border-color: rgba(255, 255, 255, .6); background: radial-gradient(circle at 35% 25%, #1fa596, #0c6b63 55%, #08504a); box-shadow: 0 8px 20px rgba(8, 80, 74, .35), 0 0 0 4px rgba(255, 255, 255, .55); }
+:root[data-look="light"] .glf-chat-mode .glf-bar textarea { border-color: rgba(12, 107, 99, .35); }
+:root[data-look="light"] .glf-chat-mode .glf-bar textarea:focus { border-color: #14897e; box-shadow: 0 0 0 4px rgba(20, 137, 126, .2); }
+
+/* ——— Скорость (02.11): невидимое не анимируем. Старый главный экран лежит под новым (visibility: hidden),
+   закрытые окна — тоже visibility: hidden; их искры и блики пересчитывались 60 раз в секунду и тормозили запуск. ——— */
+body.glh-on:not(.glh-letters) #homeScreen,
+body.glh-on:not(.glh-letters) #homeScreen::before,
+body.glh-on:not(.glh-letters) #homeScreen::after,
+body.glh-on:not(.glh-letters) #homeScreen *,
+body.glh-on:not(.glh-letters) #homeScreen *::before,
+body.glh-on:not(.glh-letters) #homeScreen *::after,
+.panel-layer[aria-hidden="true"] *,
+.panel-layer[aria-hidden="true"] *::before,
+.panel-layer[aria-hidden="true"] *::after { animation: none !important; }
+/* Старый главный экран под новым не нужен вовсе — не раскладываем его (≈ секунда на слабом телефоне при запуске) */
+html.glh-pending #homeScreen,
+body.glh-on:not(.glh-letters) #homeScreen { display: none !important; }
+/* Закрытые окна (настройки, покупка, язык…) не раскладываем: содержимое пропускается, а сама панель остаётся —
+   её выезд при открытии работает как прежде. Закрываются они мгновенно (visibility без перехода), так что разницы не видно. */
+.panel-layer:not(.is-open) > :not(.panel-backdrop) { content-visibility: hidden; }

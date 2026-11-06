@@ -1,0 +1,25 @@
+node_modules/
+.wrangler/
+.gradle/
+**/build/
+mobile/dist/
+mobile/ios/*.xcodeproj/
+supabase/.temp/
+*.jks
+*.keystore
+.env
+.env.*
+service-account*.json
+google-play*.json
+.claude/
+.playwright-mcp/
+
+# Увеличенные исходники фонов (по 35 МБ) — только локально.
+assets/source/x4/
+assets/source/cards/
+assets/source/loves/
+
+# Firebase (звонки при закрытом приложении): ключи Android-клиента, только на компьютере владельца — сайт публичный.
+mobile/android/app/google-services.json
+assets/source/gifts/
+assets/source/scenes/
